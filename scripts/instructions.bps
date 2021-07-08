@@ -1,0 +1,139 @@
+package instructions
+
+bool[20] unlocked
+bool[8] jumps
+enum("pickable_lst","pickable_lst","CSV")
+def @reset reset(){
+    forgenerate($inst,instruction_set){
+        unlocked[$inst.index] = $inst.unlocked
+    }
+    jumps = false
+}
+def clear(){
+    forgenerate($inst,instruction_set){
+        unlocked[$inst.index] = false
+    }
+    jumps = false
+}
+INT BoxID
+int globalID
+PICKABLE_LST Box
+
+int walk(int pc){
+    if (block(^ ^ ^1 air) && block(^ ^ ^2 air) && block(^ ^ ^3 air) && block(^ ^ ^4 air) && block(^ ^ ^5 air)){
+        interpreter.status = walking
+    }
+    return pc+1
+}
+int turnLeft(int pc){
+    interpreter.status = turningleft
+    return pc+1
+}
+int turnRight(int pc){
+    interpreter.status = turningright
+    return pc+1
+}
+int turnAround(int pc){
+    interpreter.status = turningaround
+    return pc+1
+}
+int pickup(int pc){
+    BoxID := -1
+    if (BoxID == -1){
+        forgenerate($i,pickable_lst){
+            positioned(^ ^ ^1){
+                if (block(~ ~ ~ $i)){
+                    setblock(~ ~ ~ air)
+                    Box = $i
+                    positioned(~ ~2 ~){
+                        tools.summonmovablefallingblock($i)
+                    }
+                    globalID++
+                    BoxID = globalID
+                    with(@e[tag=falling_block],true){
+                        untag(falling_block)
+                        tag(box)
+                        BoxID = globalID
+                    }
+                    with(@e[tag=box_data,distance=..1],true){
+                        box.pickup(globalID)
+                    }
+                }
+            }
+        }
+    }
+    return pc+1
+}
+int drop(int pc){
+    if (block(^ ^ ^1 air) && BoxID > -1){
+        int id = BoxID
+        with(@e[tag=box,tag=!box_data],false,id==BoxID){
+            /tp @s ~ 0 ~
+            data.set({Marker:0b,NoGravity:0b})
+        }
+        forgenerate($i,pickable_lst){
+            if (Box == $i){
+                setblock(^ ^ ^1 $i)
+            }
+        }
+        positioned(^ ^ ^1){
+            with(@e[tag=box_data],false,id==BoxID){
+                box.putdown()
+                /tp @s ~ ~ ~
+            }
+        }
+        BoxID = -1
+    }
+    return pc+1
+}
+
+forgenerate($i,0,8){
+    int label_$i(int pc){
+        return pc+1
+    }
+    int jump_$i(int pc){
+        int=>int a = label_$i
+        int b = a
+        int npc = interpreter.action.indexof(b)+1
+        return npc
+    }
+}
+def set_jump(){
+    int index = 0
+    forgenerate($i,0,7){
+        if (index == $i && @e[tag=inst_jump_$i]){
+            index++
+        }
+    }
+    if (index >= 8){
+        kill(@s)
+    }
+    switch(index){
+        forgenerate($i,0,7){
+            case($i){
+                armor_stand.setmodel(iron_ingot,1$i)
+                component.comp.action = jump_$i
+                tag(inst_jump_$i)
+                def pck(){
+                    component.comp.onplace = bl.void
+                    positioned(~ ~-0.5 ~){
+                        component.summon(iron_ingot{CustomModelData:2$i},6,label_$i, bl.void, bl.void, jump_del,true)
+                    }
+                    with(@e[tag=ui_selected]){
+                        tag(inst_jump_$i)
+                        component.comp.onpickup #= -1
+                    }
+                }
+                component.comp.onplace = pck
+                component.comp.onpickup = bl.void
+            }
+        }
+    }
+}
+def jump_del(){
+    forgenerate($i,0,7){
+        if (@s[tag=inst_jump_$i]){
+            kill(@e[tag=inst_jump_$i])
+        }
+    }
+}

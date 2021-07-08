@@ -1,0 +1,30 @@
+package hub
+
+def ticking main(){
+    input.onblackstonebutton(-31,115,28){
+        with(@p){
+            credit.theblueman003()
+        }
+    }
+    input.onblackstonebutton(-31,115,20){
+        with(@p){
+            credit.benjamin874()
+        }
+    }
+    input.onblackstonebutton(-30,115,24){
+        with(@p){
+            intro.start()
+        }
+    }
+    input.onblackstonebutton(0,0,0){
+        print(("=======[ Music Credit ]=======",green))
+        print("\"Puzzle Game 3\" by Eric Matyas Soundimage.org")
+        print("Puzzle tune by rezoner")
+        print(("Perpetual Tension by Zander Noriega",link="https://opengameart.org/users/zander-noriega"))
+    } 
+    maps.initplayers{
+        /execute in minecraft:overworld run tp @s -21.39 115.00 24.59 -1709.74 -1.30
+        gamemode(adventure)
+        /clear @s
+    } 
+}

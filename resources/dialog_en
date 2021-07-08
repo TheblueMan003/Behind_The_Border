@@ -1,0 +1,54 @@
+name;value;time
+intro_0;((""),("Boss! I need to tell you something!",white));60
+intro_1;((""),("What is it?",light_purple));20
+intro_2;((""),("The Infinity Room got hacked! We lost ...",white));60
+intro_3;((""),("Listen I don't really care.",light_purple));60
+intro_4;((""),("We get hacked almost every week.",light_purple));60
+intro_5;((""),("But don't worry. We store fake data inside all of our computer.",light_purple));120
+intro_6;((""),("Like this for instances!",light_purple));60
+intro_7;((""),("Nobody knows that we own a robot army!",light_purple));80
+null;((""),("",light_purple));150
+intro_8;((""),("But where do we store all of our real data?",white));80
+intro_9;((""),("Where nobody can access it!",light_purple));80
+intro_10;((""),("Beyond the World Border!",light_purple));80
+intro_11;((""),("Wait what? But How?",white));40
+intro_12;((""),("We designed a type of robot capable of crossing the World Border.",light_purple));120
+intro_13;((""),("Why don't you show him, agent w?",light_purple));80
+intro_14;((""),("Oh wait you are new!",light_purple));80
+intro_15;((""),("Let's start with something simple then!",light_purple));200
+intro_16;((""),("This is your robot.",light_purple));80
+intro_17;((""),("You can controll it with code!",light_purple));80
+intro_18;((""),("Select instruction in the left box",light_purple));80
+intro_19;((""),("and drag them into the right box.",light_purple));80
+intro_20;((""),("Easy! right?",light_purple));40
+intro_21;((""),("Let's spice thing up!",light_purple));80
+wifi;((""),("",red));0
+wifi_0;((""),("Congratulation! You are doing well!",light_purple));80
+wifi_1;((""),("Now we have a new problem.",light_purple));80
+wifi_2;((""),("The robot are connected to the WI-FI.",light_purple));80
+wifi_3;((""),("But as you can guess the WI-FI only work in limited range.",light_purple));120
+wifi_4;((""),("To go ",light_purple),("beyond that limit",yellow),(", you'll need to use crystals!",light_purple));1200
+box;((""),("",red));0
+box_0;((""),("Those robot can carry stuff!",light_purple));80
+red_bot;((""),("",red));0
+red_bot_0;((""),("Oh look! That's one of our other robot!",light_purple));80
+red_bot_1;((""),("It probably got to far beyond the limit.",light_purple));80
+red_bot_2;((""),("That's why we use those crystal!",light_purple));80
+too_far;((""),("",red));0
+too_far_0;((""),("Congratulation! You managed to reach the Blue Room!",light_purple));80
+too_far_1;((""),("This room is so far beyond the World Border that Physics starts to break.",light_purple));120
+too_far_2;((""),("Since we are beyond the 64 bit integer limit, object position can get a bit weird.",light_purple));1200
+green_bot;((""),("",red));0
+green_bot_0;((""),("Oh look! That's another of our robot!",light_purple));80
+green_bot_1;((""),("This one is an older version. It download the entire code to it harddrive.",light_purple));120
+green_bot_2;((""),("That way it only need to be in range of a crystal once.",light_purple));80
+comment;((""),("",red));0
+comment_0;((""),("Oh yeah I forgot to tell you something!",light_purple));80
+comment_1;((""),("Since the robot is beyond the World Border we cannot send human to get it back.",light_purple));120
+comment_2;((""),("So please don't mess up to much.",light_purple));80
+final;((""),("",red));0
+final_0;((""),("And here we are! The vault beyond the World Border!",light_purple));80
+final_1;((""),("The place where we store all of the secrete weapons of Solar Tech Corp.",light_purple));120
+final_2;((""),("Wait! What's happening?",light_purple));80
+final_3;((""),("We lost control of the robot.",light_purple));80
+final_4;((""),("Someone infiltrated the vault ?! Impossible!",light_purple));80

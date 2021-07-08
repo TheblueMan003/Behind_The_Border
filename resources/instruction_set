@@ -1,0 +1,9 @@
+name;desc;action;onplace;onpickup;ondelete;item;model;unlocked
+walk;(("Move the robot Foward. "),("[Click]",yellow));instructions.walk;bl.void;bl.void;bl.void;iron_ingot;1;true
+turnleft;(("Turn the robot 90° to the left. "),("[Click]",yellow));instructions.turnleft;bl.void;bl.void;bl.void;iron_ingot;2;true
+turnright;(("Turn the robot 90° to the right. "),("[Click]",yellow));instructions.turnright;bl.void;bl.void;bl.void;iron_ingot;3;true
+turnaround;(("Turn the robot 180°. "),("[Click]",yellow));instructions.turnaround;bl.void;bl.void;bl.void;iron_ingot;6;true
+pickup;(("Pick Up object in from of the robot. "),("[Click]",yellow));instructions.pickup;bl.void;bl.void;bl.void;iron_ingot;4;true
+drop;(("Drop object in front of the robot. "),("[Click]",yellow));instructions.drop;bl.void;bl.void;bl.void;iron_ingot;5;true
+jump;(("Allow you to jump to a label. "),("[Click]",yellow));instructions.jump_0;bl.void;instructions.set_jump;instructions.jump_del;iron_ingot;10;true
+label;(("Mark a place in the code. "),("[Click]",yellow));instructions.label_0;bl.void;bl.void;bl.void;iron_ingot;10;false

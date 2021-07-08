@@ -1,0 +1,98 @@
+package box
+
+struct box_data{
+    float x,y,z
+    pickable_lst block
+    bool picked
+    bool valid
+    bool wasValid
+    bool needed
+}
+BOX_DATA data
+forgenerate($i, pickable_lst){
+    def summon$i.uuid(bool needed){
+        align(xz){
+            setblock(~ ~ ~ $i)
+            positioned(~0.5 ~ ~0.5){
+                tools.summonpointer("trg")
+            }
+            with(@e[tag=trg],true){
+                data.x,data.y,data.z = vector.position()
+                data.block = $i
+                data.picked = false
+                data.needed = needed
+                data.valid = false
+                data.wasValid = false
+                untag(trg)
+                tag(box_data)
+                tag(pck_$i.uuid)
+                tag(box)
+            }
+        }
+    }
+}
+
+def check(){
+    if (data.needed){
+        data.valid = false
+        if (block(~ ~-1 ~ waxed_copper_block)){
+            data.valid = true
+        }
+        if (data.valid && !data.wasValid){
+            /particle minecraft:totem_of_undying ~ ~ ~ 1 1 1 1 10
+            sound.playall(minecraft:entity.experience_orb.pickup)
+            data.wasValid = true
+        }
+        if (!data.valid){
+            data.wasValid = false
+        }
+    }
+    if(!data.needed){
+        data.valid = true
+    }
+}
+def crystal_area(){
+    /tp @s ~ ~ ~ ~5 ~
+    /particle minecraft:dust 0 0.5 1 2 ^ ^1 ^8 0 0 0 1 1
+}
+def pickup(int id){
+    instructions.BoxID = id
+    data.picked = true
+}
+def putdown(){
+    data.picked = false
+    instructions.BoxID = -1
+}
+def clear(){
+    with(@e[tag=box_data],true){
+        setblock(~ ~ ~ air)
+        kill()
+    }
+}
+def reset(){
+    with(@e[tag=box_data],true){
+        data.valid = false
+        data.wasValid = false
+        if (!data.picked){
+            setblock(~ ~ ~ air)
+        }
+        if (data.picked){
+            data.picked = false
+            int id = instructions.BoxID
+            with(@e[tag=box,tag=!box_data],true,id == instructions.BoxID){
+                /tp ~ -20 ~
+            }
+            instructions.BoxID = -1
+        }
+        at(data.x,data.y,data.z){
+            /tp @s ~ ~ ~
+        }
+    }
+    with(@e[tag=box_data],true){
+        switch(data.block){
+            forgenerate($i, pickable_lst){
+                $i -> setblock(~ ~ ~ $i)
+            }
+        }
+    }
+}

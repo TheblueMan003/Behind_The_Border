@@ -1,0 +1,153 @@
+package level
+
+FLOAT sx,sy,sz,su,sv,ex,ey,ez, tick
+BOOL travelling
+define int $nb_lvl = 21
+
+def notif(){
+with(@a,true){sound.play(minecraft:block.note_block.bell)}
+}
+
+def lazy initplayer(int $x, int $y, int $z){
+    with(@a){
+        ex,ey,ez = $eval(.5+($x))eval$,$y,$z.5
+    }
+}
+
+def lazy loadplayer(int $x, int $y, int $z){
+    with(@a){
+        sx,sy,sz = ex,ey,ez
+        ex,ey,ez = $eval(.5+($x))eval$,$y,$z.5
+        tick = 0
+        if (sx == ex && sy == ey && sz == ez){
+            /tp @s $x $y $z
+        }
+        else{
+            gamemode(spectator)
+            travelling = true
+        }
+    }
+}
+
+def lazy loadpannel(int $x1, int $y1, int $z1){
+    positioned($x1,$y1,$z1){
+        form.start()
+    }
+}
+
+def lazy loadbots(params $par){
+    forgenerate($v,$par){
+        positioned($v.0 $v.1 $v.2){
+            robot.summon$v.4($v.3)
+        }
+    }
+}
+
+def lazy instructionset(params $par){
+    instructions.clear()
+    forgenerate($v,$par){
+        define int $i = indexfromenum(instruction_set, $v)
+        instructions.unlocked[$i] = true
+    }
+}
+
+def lazy setbox(params $par){
+    forgenerate($v,$par){
+        positioned($v.0 $v.1 $v.2){
+            box.summon$v.3($v.4)
+        }
+    }
+}
+
+def lazy setportal(params $par){
+    forgenerate($v,$par){
+        portal.summon($v.0, $v.1, $v.2, $v.3, $v.4, $v.5)
+    }
+}
+
+bool enabled
+def start(){
+    enabled = true
+    with(@a){
+        code_editor.start()
+    }
+}
+
+def summongoal(){
+    setblock(~ ~ ~ diamond_block)
+    tools.summonpointer("lvl_goal")
+}
+
+def lazy setgoals(params $par){
+    forgenerate($v,$par){
+        positioned($v.0 $v.1 $v.2){
+            summongoal()
+        }
+    }
+}
+
+def ticking main(){
+    if (enabled){
+        with(@e[tag=lvl_goal],true){
+            /tp @s ~ ~ ~ ~10 ~
+            /particle minecraft:totem_of_undying ^ ^5 ^0.75
+            /particle minecraft:totem_of_undying ^ ^5 ^-0.75
+        }
+        with(@a,true,travelling){
+            animation.lerpposition(tick,60,sx,sy,sz,su,sv,ex,ey,ez,0,90){
+                travelling = false
+                gamemode(adventure)
+            }
+            tick++
+        }
+        with(@e[tag=pck_crystal],true){
+            at(@s){box.crystal_area()}
+            at(@s){box.crystal_area()}
+            at(@s){box.crystal_area()}
+        }
+    }
+}
+
+def deletegoal(){
+    with(@e[tag=lvl_goal],true){
+        setblock(~ ~ ~ lime_concrete)
+        kill(@s)
+    }
+}
+
+def @reset close(){
+    enabled = false
+    form.close()
+    interpreter.stop()
+    deletegoal()
+    with(@a){
+        code_editor.close()
+    }
+    robot.clear()
+    box.clear()
+    portal.clear()
+}
+
+def nextlevel(){
+    level++
+    if (level == 7){
+        loadlevel7Story()
+    }
+    elif (level == 14){
+        loadlevel14Story()
+    }
+    else{
+        switch(level){
+            forgenerate($i,1,$nb_lvl){
+                $i -> loadlevel$i()
+            }
+        }
+    }
+}
+
+def completed(){
+    with(@a,true){
+        sound.playall(minecraft:entity.player.levelup)
+    }
+    nextlevel()
+}

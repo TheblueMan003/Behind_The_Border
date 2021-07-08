@@ -1,0 +1,51 @@
+package portal
+
+INT UUID
+INT Target
+int globalid
+
+def lazy summon(int $x1, int $y1, int $z1,int $x2, int $y2, int $z2){
+    positioned($x1 $y1 $z1){
+        tools.summonpointer("trg1")
+    }
+    positioned($x2 $y2 $z2){
+        tools.summonpointer("trg2")
+    }
+    with(@e[tag=trg1],true){
+        untag(trg1)
+        tag(portal)
+        globalid++
+        UUID = globalid
+        Target = UUID +1
+        setblock(~ ~ ~ sponge)
+    }
+    with(@e[tag=trg2],true){
+        untag(trg2)
+        tag(portal)
+        globalid++
+        UUID = globalid
+        Target = UUID - 1
+        setblock(~ ~ ~ sponge)
+    }
+}
+def teleport(){
+    tag(tp_trg)
+    positioned(~ ~-1 ~){
+        with(@e[tag=portal,distance=..1]){
+            int id = Target
+            with(@a,true){
+                sound.play(minecraft:block.enchantment_table.use,2,1)
+            }
+            with(@e[tag=portal],true,id==UUID){
+                /tp @e[tag=tp_trg] ~ ~1 ~
+            }
+        }
+    }
+    untag(tp_trg)
+}
+def @reset clear(){
+    with(@e[tag=portal],true){
+        setblock(~ ~ ~ lime_concrete)
+        kill()
+    }
+}

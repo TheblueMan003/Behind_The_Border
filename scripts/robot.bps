@@ -1,0 +1,161 @@
+package robot
+
+class arrow initer minecraft:armor_stand{
+    def __init__(){
+        armor_stand.setmodel(bucket,1)
+        data.set({Marker:1,Invisible:1})
+    }
+    def tp(){
+        /tp @s ~ ~ ~ ~ ~
+    }
+    def setrotation(float x, float y){
+        @s.rot_x, @s.rot_y = x,y
+    }
+}
+
+
+struct robot{
+    void=>void WalkAnimation
+    void=>void WalkCarryAnimation
+    void=>void Idle
+    void=>void IdleCarry
+    
+    float sx,sy,sz,su,sv
+    
+    bool valid
+    bool wasValid
+    bool forcemove
+    arrow disdir
+    
+    def savePos(){
+        sx,sy,sz = vector.position()
+        su,sv = vector.rotation()
+    }
+    def reset(){
+        valid = false
+        wasValid = false
+        forcemove = false
+        vector.setposition(sx,sy,sz)
+        vector.setrotation(su,sv)
+        Idle()
+        instructions.BoxID = -1
+        at(@s){
+            disdir = new arrow()
+        }
+        at(@s){
+            disdir.tp()
+            disdir.setrotation(su,sv)
+        }
+    }
+    def start(){
+        disdir = null
+    }
+    def updatearrow(){
+        at(@s){
+            disdir.tp()
+            disdir.setrotation(su,sv)
+        }
+    }
+    def delete(){
+        disdir = null
+        kill(@s)
+    }
+}
+
+ROBOT data
+bool limitdistance := false
+bool canMove(){
+    bool ret = false
+    if (limitdistance && @e[tag=pck_crystal,distance=..8]){
+        ret = true
+    }
+    if (!limitdistance){
+        ret = true
+    }
+    if (ret && @s[tag=green_bot]){
+        data.forcemove = true
+    }
+    if (data.forcemove){
+        ret = true
+    }
+    return ret
+}
+def check(){
+    data.valid = false
+    if (block(~ ~-1 ~ diamond_block)){
+        data.valid = true
+    }
+    if (data.valid && !data.wasValid){
+        /particle minecraft:totem_of_undying ~ ~ ~ 1 1 1 1 10
+        sound.playall(minecraft:entity.experience_orb.pickup)
+        data.wasValid = true
+    }
+    if (!data.valid){
+        data.wasValid = false
+    }
+}
+def lazy summonbot(int $tag, int $item){
+    def walk(){
+        animation.walk(interpreter.time/2, $item, 1, 2, 3, 4, 5)
+    }
+    def walkcarry(){
+        animation.walk(interpreter.time/2, $item, 11, 12, 13, 14, 15)
+    }
+    def idle(){
+        armor_stand.setmodel($item, 1)
+    }
+    def idlecarry(){
+        armor_stand.setmodel($item, 11)
+    }
+    align(xz){
+        /summon armor_stand ~0.5 ~ ~0.5 {Tags:["robot","trg",$tag],Invisible:1b}
+    }
+    with(@e[tag=trg]){
+        untag(trg)
+        data.savePos()
+        
+        data.WalkAnimation = walk
+        data.WalkCarryAnimation = walkcarry
+        data.Idle = idle
+        data.IdleCarry = idlecarry
+        
+        data.reset()
+    }
+}
+def clear(){
+    with(@e[tag=robot]){
+        data.delete()
+    }
+}
+def summonBlue(int rot){
+    summonbot("blue_bot",coal)
+    with(@e[tag=blue_bot]){
+        robot.data.su = rot
+        @s.rot_x = rot
+        robot.data.updatearrow()
+    }
+}
+def summonRed(int rot){
+    summonbot("red_bot",charcoal)
+    with(@e[tag=red_bot]){
+        robot.data.su = rot
+        @s.rot_x = rot
+        robot.data.updatearrow()
+    }
+}
+def summonGreen(int rot){
+    summonbot("green_bot",scute)
+    with(@e[tag=green_bot]){
+        robot.data.su = rot
+        @s.rot_x = rot
+        robot.data.updatearrow()
+    }
+}
+def summonYellow(int rot){
+    summonbot("yellow_bot",turtle_egg)
+    with(@e[tag=yellow_bot]){
+        robot.data.su = rot
+        @s.rot_x = rot
+        robot.data.updatearrow()
+    }
+}

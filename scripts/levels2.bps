@@ -1,0 +1,186 @@
+package level
+
+define int $gamemsg = "",("Beyond the Board >> ",aqua)
+
+def loadlevel11(){
+    close()
+    
+    level = 11
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-181,73,140)
+    loadpannel(-181,75,148)
+    loadbots((-176,60,140,-90,blue),(-186,60,150,90,red))
+    setgoals((-181,59,130),(-186,59,130))
+    setbox((-175,60,140,crystal,false))
+    
+    start()
+}
+
+def loadlevel12(){
+    close()
+    
+    level = 12
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-185,73,110)
+    loadpannel(-185,75,117)
+    loadbots((-181,60,120,0,blue),(-186,60,120,0,red))
+    setgoals((-181,59,115),(-191,59,110))
+    setbox((-181,60,121,crystal,false))
+    
+    print($gamemsg,"Tip: ",("The robots cannot move foward if there is a block on the path.",yellow))
+    notif()
+    
+    start()
+}
+def loadlevel13(){
+    close()
+    
+    level = 13
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-185,73,110)
+    loadpannel(-185,75,117)
+    loadbots((-181,60,120,0,blue))
+    setgoals((-181,59,115))
+    setbox((-186,60,115,crystal,false),(-180,60,120,box,true),(-191,60,121,box,true),(-192,60,110,box,true),(-181,60,109,box,true))
+    
+    /setblock -181 59 121 minecraft:waxed_copper_block
+    /setblock -192 59 120 minecraft:waxed_copper_block
+    /setblock -191 59 109 minecraft:waxed_copper_block
+    /setblock -180 59 110 minecraft:waxed_copper_block   
+    
+    start()
+}
+def loadlevel14story(){
+    close()
+    
+    level = 14
+    initplayer(-214,73,110)
+    loadbots((-201,60,115,90,blue))
+    setgoals((-221,59,110))
+    setbox((-202,60,115,crystal,false),(-220,60,115,box,true))
+    setportal((-206,59,115,-221,59,120))
+    
+    /setblock -221 59 109 minecraft:waxed_copper_block
+    
+    intro.startTooFar()
+}
+def loadlevel14(){
+    close()
+    
+    level = 14
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-214,73,110)
+    loadpannel(-214,75,118)
+    loadbots((-201,60,115,90,blue))
+    setgoals((-221,59,110))
+    setbox((-202,60,115,crystal,false),(-220,60,115,box,true))
+    setportal((-206,59,115,-221,59,120))
+    
+    /setblock -221 59 109 minecraft:waxed_copper_block
+    with(@a){
+        music.playmusic2()
+    }
+    
+    start()
+}
+def loadlevel15(){
+    close()
+    
+    level = 15
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-214,73,110)
+    loadpannel(-214,75,118)
+    loadbots((-206,60,115,90,blue),(-206,60,110,90,red))
+    setgoals((-211,59,120),(-221,59,115))
+    setbox((-207,60,115,crystal,false))
+    setportal((-211,59,115,-216,59,105))
+    
+    /setblock -221 59 109 minecraft:waxed_copper_block
+    
+    start()
+}
+def loadlevel16(){
+    close()
+    
+    level = 16
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-236,73,102)
+    loadpannel(-236,75,110)
+    loadbots((-236,60,95,0,blue),(-231,60,100,0,red))
+    setgoals((-236,59,115),(-241,59,110))
+    setbox((-236,60,96,crystal,false),(-241,60,96,box,true))
+    setportal((-231,59,110,-241,59,95))
+    
+    /setblock -241 59 111 minecraft:waxed_copper_block
+    
+    start()
+}
+
+def loadlevel17(){
+    close()
+    
+    level = 17
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-240,73,137)
+    loadpannel(-240,75,145)
+    loadbots((-231,60,135,0,blue),(-241,60,155,0,red))
+    setgoals((-231,59,135),(-236,59,135))
+    setbox((-231,60,136,crystal,false))
+    
+    print($gamemsg,"Tip: ",("Use a symetric path & a Go To instruction.",yellow))
+    notif()
+    
+    start()
+}
+
+
+def loadlevel18(){
+    close()
+    
+    intro.startGreenRobot()
+    level = 18
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-271,73,146)
+    loadpannel(-271,75,153)
+    loadbots((-261,60,150,90,blue),(-266,60,160,90,green))
+    setgoals((-266,59,145),(-271,59,150))
+    setbox((-262,60,150,crystal,false),(-267,60,160,box,true))
+    
+    print($gamemsg,"The Green Robot downloads the code once it is in range of a crystal.")
+    print($gamemsg,"Meaning that Green Robot only needs to be the radius of the crystal for one tick.")
+    print($gamemsg,"The Green Robot is not sync with the other. It will always start executing the code from the beginnig.")
+    notif()
+    
+    /setblock -272 59 150 minecraft:waxed_copper_block
+    
+    start()
+}
+def loadlevel19(){
+    close()
+    
+    level = 19
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-271,73,144)
+    loadpannel(-271,75,153)
+    loadbots((-261,60,145,90,blue),(-266,60,155,90,green))
+    setgoals((-266,59,150),(-276,59,145))
+    setbox((-262,60,145,crystal,false))
+    setportal((-266,59,145,-261,59,160))
+    
+    /setblock -272 59 150 minecraft:waxed_copper_block
+    
+    start()
+}
+def loadlevel20(){
+    close()
+    
+    level = 20
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-296,73,142)
+    loadpannel(-296,75,150)
+    loadbots((-301,60,135,0,blue),(-301,60,145,-90,green))
+    setgoals((-301,59,135),(-301,59,155))
+    setbox((-301,60,136,crystal,false))
+    
+    start()
+}

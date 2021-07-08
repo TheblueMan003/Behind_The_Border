@@ -1,0 +1,116 @@
+package form
+
+define int $gamemsg = "",("Beyond the Board >> ",aqua)
+
+
+def lazy botbutton(int $color){
+    if (@e[tag=$color_bot]){
+        with(@e[tag=$color_bot],true){
+            effect(give,@s,glowing,10,1,true)
+        }
+        with(@p,true){
+            animation.lookat(@e[tag=$color_bot])
+        }
+    }
+    else{
+        print($gamemsg,"The $color robot is not present in this level.")
+    }
+}
+def start(){
+    fill(~-6 ~-5 ~ ~6 ~5 ~ barrier)
+    positioned(~5 ~ ~){
+        component.summoninstructionbox()
+        forgenerate($inst,instruction_set){
+            if (instructions.unlocked[$inst.index]){
+                positioned(~ ~$eval(3.15-$inst.index*0.5) ~){
+                    component.summon$inst()
+                }
+            }
+        }
+    }
+    positioned(~2 ~ ~){
+            component.summonbutton(gold_ingot{CustomModelData:1},but_play){
+            interpreter.togglestart()
+            sound.playall(minecraft:entity.experience_orb.pickup)
+            if (interpreter.enabled){
+                armor_stand.setmodel(gold_ingot,2)
+            }
+            else{
+                armor_stand.setmodel(gold_ingot,1)
+            }
+        }
+    }
+    positioned(~ ~ ~){
+            component.summonbutton(gold_ingot{CustomModelData:3},but_stop){
+            interpreter.stop()
+            sound.playall(minecraft:block.respawn_anchor.deplete)
+            with(@e[tag=but_play]){
+                armor_stand.setmodel(gold_ingot,1)
+            }
+        }
+    }
+    positioned(~-2 ~ ~){
+            component.summonbutton(gold_ingot{CustomModelData:4},but_delete){
+            with(@e[tag=bck_code],true){
+                untag(@e[tag=ui_code],src_code)
+                tag(@e[tag=ui_code,distance=..4],src_code)
+            }
+            kill(@e[tag=src_code])
+            sound.playall(minecraft:entity.bat.death)
+        }
+    }
+    positioned(~ ~1 ~){
+            component.summonbutton(gold_ingot{CustomModelData:7},but_speed_nb){
+        }
+        updatespeed()
+    }
+    positioned(~-1 ~1 ~){
+            component.summonbutton(gold_ingot{CustomModelData:5},but_speed_up){
+            interpreter.speedup()
+            updatespeed()
+            sound.playall(minecraft:block.anvil.step)
+        }
+    }
+    positioned(~1 ~1 ~){
+            component.summonbutton(gold_ingot{CustomModelData:6},but_speed_down){
+            interpreter.speeddown()
+            updatespeed()
+            sound.playall(minecraft:block.anvil.step)
+        }
+    }
+    // bot
+    positioned(~1 ~2 ~){
+            component.summonbutton(gold_ingot{CustomModelData:11},but_blue_bot){
+            botbutton(blue)
+        }
+    }
+    positioned(~0 ~2 ~){
+            component.summonbutton(gold_ingot{CustomModelData:12},but_red_bot){
+            botbutton(red)
+        }
+    }
+    positioned(~-1 ~2 ~){
+            component.summonbutton(gold_ingot{CustomModelData:13},but_green_bot){
+            botbutton(green)
+        }
+    }
+    //positioned(~-2 ~2 ~){
+    //        component.summonbutton(gold_ingot{CustomModelData:14},but_yellow_bot){
+    //        botbutton(yellow)
+    //    }
+    //}
+    positioned(~-5 ~ ~){
+        component.summoncodebox()
+    }
+}
+def close(){
+    kill(@e[tag=ui])
+}
+def updatespeed(){
+    with(@e[tag=but_speed_nb]){
+        if (interpreter.speed == 1){armor_stand.setmodel(gold_ingot,7)}
+        if (interpreter.speed == 2){armor_stand.setmodel(gold_ingot,8)}
+        if (interpreter.speed == 4){armor_stand.setmodel(gold_ingot,9)}
+        if (interpreter.speed == 8){armor_stand.setmodel(gold_ingot,10)}
+    }
+}

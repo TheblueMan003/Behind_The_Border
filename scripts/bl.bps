@@ -1,0 +1,40 @@
+package bl
+
+gamerule(announceAdvancements, false)
+gamerule(commandBlockOutput, false)
+gamerule(disableRaids, true)
+gamerule(doDaylightCycle, false)
+gamerule(doEntityDrops, false)
+gamerule(doFireTick, false)
+gamerule(doInsomnia, false)
+gamerule(doImmediateRespawn, true)
+gamerule(doLimitedCrafting, true)
+gamerule(doMobLoot, false)
+gamerule(doMobSpawning, false)
+gamerule(doPatrolSpawning, false)
+gamerule(doTraderSpawning, false)
+gamerule(doTileDrops, false)
+gamerule(doWeatherCycle, false)
+gamerule(fallDamage, false)
+gamerule(fireDamage, false)
+gamerule(keepInventory, true)
+gamerule(mobGriefing, false)
+gamerule(showDeathMessages, false)
+
+if (!__debug()){
+    gamerule(reducedDebugInfo, true)
+    gamerule(sendCommandFeedback, false)
+}
+else{
+    gamerule(reducedDebugInfo, false)
+    gamerule(sendCommandFeedback, true)
+}
+
+def void(){
+
+}
+
+def ticking manager(){
+    effect(give,@a,night_vision,999999,1,true)
+    effect(give,@a,saturation,999999,1,true)
+}

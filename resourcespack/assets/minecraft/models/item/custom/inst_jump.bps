@@ -1,0 +1,101 @@
+forgenerate($i, 0, 7){
+    jsonfile inst_jump_$i{
+        "credit": "Made with Blockbench",
+        "textures": {
+            "1": "custom/instruction_2"
+        },
+        "elements": [
+            {
+                "from": [-2, -1, 8],
+                "to": [18, 2, 8],
+                "rotation": {
+                    "angle": 0,
+                    "axis": "y",
+                    "origin": [5, 23, 17]
+                },
+                "faces": {
+                    "north": {
+                        "uv": [0, $eval(1.875*$i), 16, $eval(1.875*($i+1))eval$],
+                        "texture": "#1"
+                    },
+                    "east": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "south": {
+                        "uv": [0, $eval(1.875*$i), 16, $eval(1.875*($i+1))eval$],
+                        "texture": "#1"
+                    },
+                    "west": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "up": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "down": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    }
+                }
+            }
+        ],
+        "display": {
+            "head": {
+                "translation": [0, -8, 0],
+                "scale": [4, 4, 4]
+            }
+        }
+    }
+}
+forgenerate($i, 0, 7){
+    jsonfile inst_label_$i{
+        "credit": "Made with Blockbench",
+        "textures": {
+            "1": "custom/instruction_3"
+        },
+        "elements": [{
+                "from": [-2, -1, 8],
+                "to": [18, 2, 8],
+                "rotation": {
+                    "angle": 0,
+                    "axis": "y",
+                    "origin": [5, 23, 17]
+                },
+                "faces": {
+                    "north": {
+                        "uv": [0, $eval(1.875*$i), 16, $eval(1.875*($i+1))eval$],
+                        "texture": "#1"
+                    },
+                    "east": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "south": {
+                        "uv": [0, $eval(1.875*$i), 16, $eval(1.875*($i+1))eval$],
+                        "texture": "#1"
+                    },
+                    "west": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "up": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    },
+                    "down": {
+                        "uv": [0, 0, 1, 1],
+                        "texture": "#missing"
+                    }
+                }
+            }
+        ],
+        "display": {
+            "head": {
+                "translation": [0, -8, 0],
+                "scale": [4, 4, 4]
+            }
+        }
+    }
+}

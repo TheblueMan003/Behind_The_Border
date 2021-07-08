@@ -1,0 +1,31 @@
+forgenerate($i,0,21){
+    sounds.music("sfx/intro_$i")
+}
+forgenerate($i,0,4){
+    sounds.music("sfx/wifi_$i")
+}
+sounds.music("sfx/box_0")
+forgenerate($i,0,2){
+    sounds.music("sfx/red_bot_$i")
+}
+forgenerate($i,0,2){
+    sounds.music("sfx/too_far_$i")
+}
+forgenerate($i,0,2){
+    sounds.music("sfx/green_bot_$i")
+}
+forgenerate($i,0,2){
+    sounds.music("sfx/comment_$i")
+}
+forgenerate($i,0,4){
+    sounds.music("sfx/final_$i")
+}
+
+sounds.music("music/puzzle_game_2",0.5)
+sounds.music("music/puzzle_game_3",0.5)
+sounds.music("music/puzzle_1_a",0.5)
+sounds.music("music/puzzle_1_b",0.5)
+sounds.music("music/tension",0.5)
+
+
+sounds.generate()

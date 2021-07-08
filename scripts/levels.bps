@@ -1,0 +1,195 @@
+package level
+
+define int $gamemsg = "",("Beyond the Board >> ",aqua)
+
+int level
+
+def loadlevel0(){
+    close()
+    
+    instructionset(walk)
+    loadpannel(-97,75,74)
+    initplayer(-97,73,67)
+    
+    robot.limitdistance = false
+}
+
+def loadlevel1(){
+    close()
+    
+    level = 1
+    instructionset(walk)
+    loadplayer(-97,73,67)
+    loadpannel(-97,75,74)
+    loadbots((-91,60,70,90,blue))
+    setgoals((-101,59,70))
+    
+    print($gamemsg,"Select instructions from the ",("Instruction Box",yellow)," by clicking on them.")
+    print($gamemsg,"Drag the ",("Instruction",yellow)," into the ",("Code Box",yellow),".")
+    print($gamemsg,"To execute the code press the ",("Play Button",green),".")
+    notif()
+    
+    start()
+}
+def loadlevel2(){
+    close()
+    
+    intro.startEasy()
+    level = 2
+    instructionset(walk,turnleft,turnright,turnaround)
+    loadplayer(-97,73,67)
+    loadpannel(-97,75,74)
+    loadbots((-101,60,70,90,blue))
+    setgoals((-101,59,80))
+    
+    print($gamemsg,"New Instructions available: ",("Turn Left",yellow)," and ",("Turn Right",yellow),"!")
+    notif()
+    
+    start()
+}
+def loadlevel3(){
+    close()
+    
+    intro.startComment()
+    level = 3
+    instructionset(walk,turnleft,turnright,turnaround)
+    loadplayer(-106,73,87)
+    loadpannel(-106,75,94)
+    loadbots((-101,60,80,0,blue))
+    setgoals((-116,59,90))
+    
+    start()
+}
+def loadlevel4(){
+    close()
+    
+    level = 4
+    instructionset(walk,turnleft,turnright,turnaround)
+    loadplayer(-131,73,88)
+    loadpannel(-131,75,96)
+    loadbots((-116,60,90,90,blue))
+    setgoals((-136,59,80))
+    
+    print($gamemsg,"Some rooms have multiple puzzle inside them. Try to reach the ",("Diamond Block",aqua),"!")
+    notif()
+    /setblock -137 59 100 minecraft:waxed_copper_block
+    /setblock -125 59 100 minecraft:waxed_copper_block
+    
+    start()
+}
+def loadlevel5(){
+    close()
+    
+    level = 5
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop)
+    loadplayer(-131,73,88)
+    loadpannel(-131,75,96)
+    loadbots((-136,60,80,90,blue))
+    setgoals((-136,59,100))
+    setbox((-137,60,80,box,true))
+    
+    intro.startBox()
+    print($gamemsg,"New Instructions available: ",("Pick Up",yellow)," and ",("Drop",yellow),"!")
+    notif()
+    
+    start()
+}
+def loadlevel6(){
+    close()
+    
+    level = 6
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop)
+    loadplayer(-131,73,88)
+    loadpannel(-131,75,96)
+    loadbots((-136,60,100,90,blue))
+    setgoals((-126,59,100))
+    setbox((-131,60,94,box,true))
+    
+    start()
+}
+def loadlevel7(){
+    close()
+    
+    level = 7
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop)
+    loadplayer(-136,73,124)
+    loadpannel(-136,75,132)
+    loadbots((-131,60,115,0,blue))
+    setgoals((-126,59,130))
+    setbox((-125,60,120,crystal,false))
+    
+    robot.limitdistance = true
+    print($gamemsg,"Warning your robot is too far from the WI-FI router!")
+    print($gamemsg,"To go ",("beyond the distance limit",yellow)," please use ",("crystals",light_purple),".")
+    notif()
+    with(@a){
+        music.playmusic1()
+    }
+    start()
+}
+def loadlevel7Story(){
+    close()
+    
+    level = 7
+    initplayer(-136,73,124)
+    loadbots((-131,60,115,0,blue))
+    setgoals((-126,59,130))
+    setbox((-125,60,120,crystal,false))
+    
+    robot.limitdistance = true
+    
+    intro.startWIFI()
+}
+def loadlevel8(){
+    close()
+    
+    level = 8
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop)
+    loadplayer(-136,73,124)
+    loadpannel(-136,75,132)
+    loadbots((-126,60,130,-90,blue),(-131,60,140,0,red))
+    setgoals((-141,59,130),(-141,59,135))
+    setbox((-125,60,130,crystal,false))
+    
+    intro.startRedRobot()
+    
+    print($gamemsg,"Each robot must be on a ",("Diamond Block",aqua),".")
+    print($gamemsg,"Blue & Red robots are sync each other when in reach of a crystals.")
+    notif()
+    
+    start()
+}
+def loadlevel9(){
+    close()
+    
+    level = 9
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop)
+    loadplayer(-161,73,137)
+    loadpannel(-161,75,146)
+    loadbots((-161,60,135,0,blue),(-166,60,135,90,red))
+    setgoals((-161,59,145),(-166,59,145))
+    setbox((-155,60,140,crystal,false))
+    
+    start()
+}
+def loadlevel10(){
+    close()
+    
+    level = 10
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-181,73,140)
+    loadpannel(-181,75,148)
+    loadbots((-176,60,140,90,blue))
+    setgoals((-176,59,140))
+    setbox((-187,60,150,box,true),(-181,60,145,crystal,false))
+    
+    print($gamemsg,"New Instructions available: ",("Go To",yellow),"!")
+    print($gamemsg,("Go To",yellow)," allow you to go to a specific place inside the code.")
+    print($gamemsg,"With it you can create loop!")
+    print($gamemsg,"Tip: ",("Try Drop followed by Pick Up",yellow),".")
+    notif()
+    
+    /setblock -175 59 140 minecraft:waxed_copper_block
+    
+    start()
+}

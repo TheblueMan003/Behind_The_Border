@@ -1,0 +1,501 @@
+package intro
+
+INT title_index
+def titletbms(){
+    /title @s times 0 10 0
+    switch(title_index){
+        forgenerate($i,0,9){
+            $eval($i+20)->title(@s,title,"\uE10$i")
+        }
+        forgenerate($i,10,16){
+            $eval($i+20)->title(@s,title,"\uE1$i")
+        }
+        ..20->title(@s,title,"\uE100")
+        37..60->title(@s,title,"\uE100")
+    }
+    title_index++
+}
+def titlegame(){
+    /title @s times 0 10 0
+    switch(title_index){
+        forgenerate($i,1,17){
+            $i->title(@s,title,"\uE1$eval(50+$i)")
+        }
+        17..60->title(@s,title,"\uE150")
+    }
+    title_index++
+}
+def titlebnj(){
+    /title @s times 0 10 0
+    switch(title_index){
+        forgenerate($i,30,44){
+            $eval($i-10)->title(@s,title,"\uE1$i")
+        }
+        35..60->title(@s,title,"\uE130")
+        ..20->title(@s,title,"\uE130")
+    }
+    title_index++
+}
+def titlereset(){
+    title_index = 0
+}
+bool enabled
+int globalAnimationIndex
+float tick, ktick, btick
+int index, kindex, bindex
+int dialogtick
+int dialogtime
+int dialogindex
+int globaltick
+bool otherbot
+FUNCTION walkAnimtion
+
+def ticking main(){
+    if (enabled){
+        if (globalAnimationIndex == 0){
+            with(@a,true){
+                animation.travelling(index, tick, 0.15,
+                    (-3.5,60.00,1.5,-90.0,0.0,-3.5,60.00,41.5,-90.0,0.0),
+                    (-3.5,60.00,41.5,-90.0,0.0,-6.68,60.00,58.34,-45,0.0,-17.5,60.00,60.5,0.0,0.0),
+                    (-17.5,60.00,60.5,0.0,0.0,-32.5,60.00,60.5,0.0,0.0),
+                    (-32.5,60.00,60.5,0.0,0.0,-32.50,60.00,75.10,0.00,0.00),
+                    (-32.50,60.00,75.10,0.00,0.00,-31.50,62.62,81.86,0.0,45.0),
+                    (-31.50,62.62,81.86,0.0,45.0,20),
+                    (-62.42,61.13,63.38,322.79,0.62,-73.04,65.24,64.40,306.97,21.94,-73.60,70.87,68.93,269.59,61.48),
+                    (-73.60,70.87,68.93,269.59,61.48,40),
+                    (-74.96,62.62,70.01,450.27,-4.66,-66.50,62.62,70.01,450.27,-4.66),
+                    (-66.50,62.62,70.01,450.27,-4.66,60),
+                    (-80.52,65.42,77.00,185.89,44.22,-85.43,68.20,72.28,242.68,59.32,-83.43,68.20,68.30,303.79,69.39),
+                    (-83.43,68.20,68.30,303.79,69.39,30),
+                    (-67.64,61.38,68.39,37.31,14.03,180),
+                    (-67.64,61.38,68.39,37.31,14.03,-95.56,60.86,70.37,90.58,-4.42),
+                    (-95.56,60.86,70.37,90.58,-4.42,-96.56,73.00,67.37,0.0,90.00),
+                    (-96.56,73.00,67.37,0.0,90.00,60),
+                    (-96.56,73.00,67.37,0.0,0.00,60),
+                    (-96.56,73.00,67.37,-45.0,0.00,60),
+                    (-96.56,73.00,67.37,45.0,0.00,60)){
+                    enabled = false
+                    dialog.close()
+                    kill(@e[tag=anim])
+                    gamemode(adventure)
+                    //worldboardreset()
+                    /tp @s ~ ~ ~ 0 0
+                    level.loadlevel1()
+                }
+                if (globaltick == 120){
+                    titlereset()
+                }
+                if (globaltick == 880){
+                    titlereset()
+                }
+                if (globaltick > 120 && globaltick < 180){
+                    titletbms()
+                }
+                if (globaltick == 240){
+                    titlereset()
+                }
+                if (globaltick > 240 && globaltick < 300){
+                    titlebnj()
+                }
+                if (globaltick > 880 && globaltick < 970){
+                    titlegame()
+                }
+            }
+            with(@e[tag=anim_kernel]){
+                animation.travelling(kindex, ktick, 0.2,
+                    (6.53,60.00,-4.41,-0.07,-0.58,6.54,60.00,47.37,0.17,-0.10),
+                    (6.54,60.00,47.37,0.89,-0.10,1.30,60.00,69.13,53.37,3.25,-14.11,60.00,71.41,89.55,-0.82),
+                (-14.11,60.00,71.41,89.55,-0.82,-67.25,60.00,71.74,89.31,-4.66)){
+                    untag(anim_walk)
+                    armor_stand.setmodel(amethyst_shard,1)
+                }
+            }
+            if (!otherbot){
+                with(@e[tag=anim_blue]){
+                    animation.travelling(bindex, btick, 0.19,
+                        (4.45,60.00,-4.42,359.86,-1.06,4.47,60.00,47.23,359.14,-4.42),
+                        (4.47,60.00,47.23,0.14,-4.42,-0.50,60.00,67.26,56.17,9.96,-15.49,60.00,69.30,90.48,-0.10),
+                    (-15.49,60.00,69.30,89.48,-0.10,-67.37,60.06,69.23,90.20,0.86)){
+                        untag(anim_walk)
+                        armor_stand.setmodel(quartz,1)
+                    }
+                }
+            }
+            if (otherbot){
+                with(@e[tag=anim_bot]){
+                    animation.travelling(bindex, btick, 0.19,
+                    (-81.5,60.5,70.5,90.0,0.0,-90.50,60.00,70.50,90.0,0.0)){
+                        untag(anim_walk)
+                        armor_stand.setmodel(coal,1)
+                    }
+                }
+            }
+        }
+        if (globalAnimationIndex == 1){
+            with(@a,true){
+                animation.travelling(index, tick, 0.08,
+                    (-130.61,61.38,115.87,-179.42,2.53,-130.62,61.38,143.04,-179.42,2.53),
+                    (-130.62,61.38,143.04,-179.42,2.53,-133.75,64.99,129.72,-89.21,25.78),
+                (-128.27,63.10,117.80,-59.36,48.54,-128.19,67.41,125.13,-148.51,50.22)){
+                    enabled = false
+                    dialog.close()
+                    kill(@e[tag=anim])
+                    gamemode(adventure)
+                    /tp @s ~ ~ ~ 0 0
+                    level.loadlevel7()
+                }
+            }
+        }
+        if (globalAnimationIndex == 3){
+            with(@a,true){
+                animation.travelling(index, tick, 0.10,
+                (-206.10,60.00,115.59,-90.10,3.49,-220.82,60.00,115.60,-90.10,3.49),
+                (-220.82,60.00,115.60,-90.10,3.49,-208.86,74.38,121.47,-180.21,54.77),
+                (-208.86,74.38,121.47,-180.21,54.77,-213.06,76.85,111.99,-359.69,90.00)){
+                    enabled = false
+                    dialog.close()
+                    kill(@e[tag=anim])
+                    gamemode(adventure)
+                    /tp @s ~ ~ ~ 0 0
+                    level.loadlevel14()
+                }
+            }
+        }
+        if (globalAnimationIndex == 4){
+            if (!otherbot){
+                with(@e[tag=anim_bot]){
+                        animation.travelling(bindex, btick, 0.19,
+                        (-340.58,60.00,150.49,89.38,-1.06,-355.30,60.00,150.51,89.38,-1.06)){
+                            untag(anim_walk)
+                            armor_stand.setmodel(coal,1)
+                        }
+                }
+            }
+            if (otherbot){
+                with(@e[tag=anim_bot]){
+                    animation.travelling(bindex, btick, 0.19,
+                    (-355.30,60.00,150.51,89.38,-1.06,-368.70,60.00,146.42,90.41,12.36)){
+                        untag(anim_walk)
+                        armor_stand.setmodel(coal,1)
+                    }
+                }
+            }
+            with(@a,true){
+                animation.travelling(index, tick, 0.11,
+                (-351.53,61.26,150.67,-90.82,5.41,-360.27,61.26,150.68,-90.82,5.41),
+                (-360.27,61.26,150.68,-90.82,5.41,-366.44,66.88,154.32,-125.81,37.76,-362.56,72.13,158.09,-171.58,54.29),
+                (-362.56,72.13,158.09,-171.58,54.29,-354.72,70.25,150.43,-269.59,30.09),
+                (-354.72,70.25,150.43,-269.59,30.09,90),
+                (-370.23,60.00,146.85,-88.90,0.14,120)){
+                enabled = false
+                dialog.close()
+                kill(@e[tag=anim])
+                gamemode(adventure)
+                }
+            }
+        }
+        walker()
+        tick,ktick,btick ++
+        dialogtick++
+        globaltick++
+        if (dialogtick >= dialogtime){
+            dialogindex ++
+            dialogtick = 0
+            if (dialogindex == 10){
+                worldborderset()
+                kill(@e[tag=anim_army])
+            }
+            if (dialogindex == 14){
+                with(@e[tag=anim_kernel],true){
+                    animation.lookat(@e[tag=anim_agent])
+                }
+                with(@e[tag=anim_agent],true){
+                    animation.lookat(@e[tag=anim_kernel])
+                }
+            }
+            if (dialogindex == 16){
+                otherbot= true
+                bindex = 0
+                btick = 0
+                with(@e[tag=anim_bot]){
+                    tag(anim_walk)
+                }
+                with(@a,true){
+                    music.playmusic3()
+                }
+            }
+            if (dialogindex == 17){
+                level.loadlevel0()
+            }
+            if (dialogindex == 2){
+                summonChara(7,60,53,"anim_forward",raw_copper,180)
+            }
+            if (dialogindex == 6){
+                summonChara(-49,60,72,"anim_forward",lapis_lazuli,-90)
+            }
+            if (dialogindex == 7){
+                summonChara(-10,60,68,"anim_forward",raw_gold,90)
+            }
+            define int $index1 = indexfromenum(dialog.__dialogs__, intro_21)
+            if (dialogindex == $eval($index1+1)){
+                enabled = false
+                with(@a){
+                    dialog.close()
+                }
+            }
+            define int $index2 = indexfromenum(dialog.__dialogs__, red_bot_2)
+            if (dialogindex == $eval($index2+1)){
+                enabled = false
+                with(@a){
+                    dialog.close()
+                }
+            }
+            define int $index3 = indexfromenum(dialog.__dialogs__, box_0)
+            if (dialogindex == $eval($index3+1)){
+                enabled = false
+                with(@a){
+                    dialog.close()
+                }
+            }
+            define int $index4 = indexfromenum(dialog.__dialogs__, green_bot_2)
+            if (dialogindex == $eval($index4+1)){
+                enabled = false
+                with(@a){
+                    dialog.close()
+                }
+            }
+            define int $index5 = indexfromenum(dialog.__dialogs__, comment_2)
+            if (dialogindex == $eval($index5+1)){
+                enabled = false
+                with(@a){
+                    dialog.close()
+                }
+            }
+            define int $index6 = indexfromenum(dialog.__dialogs__, final)
+            if (dialogindex == $eval($index6+3)){
+                tag(@e[tag=anim_bot],anim_walk)
+                bindex, btick = 0
+                worldborderopen()
+                otherbot = true
+            }
+            if (dialogindex == $eval($index6+1)){
+                with(@a){
+                    music.playtension()
+                }
+            }
+            if (enabled){
+                switch(dialogindex){
+                    forgenerate($i,dialog.__dialogs__){
+                        case($i.index){
+                            dialogtime = $i.time
+                            with(@a,true){
+                                sound.play(minecraft:sfx.$i)
+                                dialog.show(dialogindex, 1, null, null)
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+}
+def walker(){
+    with(@e[tag=anim_walk],true){
+        walkAnimtion()
+        if (block(~ ~-1 ~ air)){
+            kill(@s)
+        }
+    }
+    with(@e[tag=anim_forward],true){
+        /tp @s ^ ^ ^0.25
+    }
+}
+
+def lazy summonChara(int $x, int $y, int $z, int $tag, int $item, int $rot){
+    /summon armor_stand $x $y $z {Invisible:1,NoGravity:1,Tags:["anim","anim_walk",$tag,"trg"],Rotation:[$rotf,0.0f]}
+    with(@e[tag=trg]){
+        def anim(){
+            animation.walk(globaltick/2,$item,1,2,3,4,5)
+        }
+        armor_stand.setmodel($item,1)
+        walkAnimtion = anim
+        untag(trg)
+    }
+}
+def lazy summonIdleChar(int $x, int $y, int $z, int $tag, int $item, int $rot){
+    /summon armor_stand $x $y $z {Invisible:1,NoGravity:1,Tags:["anim",$tag,"trg"],Rotation:[$rotf,0.0f]}
+    with(@e[tag=trg]){
+        armor_stand.setmodel($item,1)
+        def anim(){
+            animation.walk(globaltick,$item,1,2,3,4,5)
+        }
+        walkAnimtion = anim
+        untag(trg)
+    }
+}
+def worldborderset(){
+    worldborder.center(-58.67,70.49)
+    worldborder.set(56)
+    worldborder.warningdistance(0)
+    worldborder.damage(0)
+    worldborder.buffer(10000)
+}
+def worldboardreset(){
+    worldborder.center(0,0)
+    worldborder.set(6000000)
+}
+def worldborderprepare(){
+    worldborder.set(500)
+}
+def worldborderopen(){
+    worldborder.set(700,10)
+}
+def start(){
+    globalAnimationIndex = 0
+    worldboardreset()
+    enabled = true
+    index, kindex, bindex = 0
+    tick, ktick, btick = 0
+    otherbot = false
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 40
+    dialogindex = -1
+    summonChara(7,60,43,"anim_forward",diamond,180)
+    with(@a){
+        gamemode(spectator)
+        music.stop()
+    }
+    summonChara(6.53,60.00,-4.41,"anim_kernel",amethyst_shard,0)
+    summonChara(4.45,60.00,-4.42,"anim_blue",quartz,0)
+    summonIdleChar(-31,60,73,"anim_idle",emerald,180)
+    summonIdleChar(-72,60,73,"anim_agent",raw_iron,-137)
+    summonIdleChar(-81,60,70,"anim_bot",coal,90)
+    summonIdleChar(1,60,68,"anim_idle",copper_ingot,135)
+    
+    positioned(-30,50,100){
+        summonRow(3)
+    }
+}
+def startFinal(){
+    worldborderprepare()
+    globalAnimationIndex = 4
+    enabled = true
+    index, kindex, bindex = 0
+    tick, ktick, btick = 0
+    otherbot = false
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 40
+    define int $index = indexfromenum(dialog.__dialogs__, final)
+    dialogindex = $index
+    with(@a){
+        gamemode(spectator)
+        music.stop()
+    }
+    summonIdleChar(-341,60,150,"anim_bot",coal,90)
+    tag(@e[tag=anim_bot],anim_walk)
+}
+def startEasy(){
+    globalAnimationIndex = 2
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, intro_19)
+    dialogindex = $index
+    index = 0
+    tick = 0
+}
+def startWIFI(){
+    globalAnimationIndex = 1
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 40
+    define int $index = indexfromenum(dialog.__dialogs__, wifi)
+    dialogindex = $index
+    index = 0
+    tick = 0
+    
+    with(@a){
+        gamemode(spectator)
+        music.stop()
+    }
+}
+def startBox(){
+    globalAnimationIndex = 2
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, box)
+    dialogindex = $index
+    index = 0
+    tick = 0
+}
+def startRedRobot(){
+    globalAnimationIndex = 2
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, red_bot)
+    dialogindex = $index
+    index = 0
+    tick = 0
+}
+def startGreenRobot(){
+    globalAnimationIndex = 2
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, green_bot)
+    dialogindex = $index
+    index = 0
+    tick = 0
+}
+def startComment(){
+    globalAnimationIndex = 2
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, comment)
+    dialogindex = $index
+    index = 0
+    tick = 0
+}
+def startTooFar(){
+    globalAnimationIndex = 3
+    enabled = true
+    globaltick = 0
+    dialogtick = 0
+    dialogtime = 2
+    define int $index = indexfromenum(dialog.__dialogs__, too_far)
+    dialogindex = $index
+    index = 0
+    tick = 0
+    with(@a){
+        music.stop()
+        gamemode(spectator)
+    }
+}
+def summonRow(int nb){
+    summonColumn(7)
+    if (nb > 0){
+        positioned(~-3 ~ ~){
+            summonRow(nb-1)
+        }
+    }
+}
+def summonColumn(int nb){
+    summonIdleChar(~,~,~,"anim_army",coal,0)
+    if (nb > 0){
+        positioned(~ ~ ~-3){
+            summonColumn(nb-1)
+        }
+    }
+}

@@ -1,0 +1,8 @@
+package music
+
+music.addmusic(music1,minecraft:music.puzzle_game_2,$eval((3*60+58)*20)eval$)
+music.addmusic(music2,minecraft:music.puzzle_game_3,$eval((2*60+31)*20)eval$)
+music.addmusic(music3,minecraft:music.puzzle_1_a,$eval((0*60+57)*20)eval$)
+music.addmusic(music4,minecraft:music.puzzle_1_b,$eval((0*60+48)*20)eval$)
+music.addmusic(tension,minecraft:music.tension,$eval((2*60+42)*20)eval$)
+

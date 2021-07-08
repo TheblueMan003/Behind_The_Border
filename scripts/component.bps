@@ -1,0 +1,96 @@
+package component
+
+struct component{
+    int=>int action
+    int text
+    void=>void onpickup
+    void=>void onplace
+    void=>void ondelete
+    float x
+    float y
+    float z
+    def lazy __init__(int $item, int text, function $action, function $onpickup, function $onplace, function $ondelete){
+        this.action = $action
+        this.onpickup = $onpickup
+        this.onplace = $onplace
+        this.ondelete = $ondelete
+        this.text = text
+        inventory.sethelmet($item)
+        x,y,z = vector.position()
+    }
+}
+struct button{
+    void=>void action
+}
+COMPONENT comp
+BUTTON but
+
+
+def lazy summon(int $item, int text, function $action, function $onpickup, function $onplace, function $ondelete, bool select){
+    align(xz){
+        /summon armor_stand ~.5 ~ ~.5 {Invisible:1b,NoGravity:1b,Marker:1,Tags:["ui","ui_component","ui_code","trg"]}
+        with(@e[tag=trg]){
+            untag(trg)
+            comp = component($item, text, $action,$onpickup,$onplace, $ondelete)
+            if (select){
+                tag(ui_selected)
+                with(@p){
+                    code_editor.selectingmode=drag
+                }
+            }
+        }
+    }
+}
+
+[inplace]
+def lazy summongenerator(int $name, int $item, int text, function $action, function $onpickup, function $onplace, function $ondelete){
+    def summon$name(){
+        def pickup(){
+            summon$name()
+            $onpickup()
+            comp.onpickup #= -1
+        }
+        summon($item, text, $action, pickup, $onplace, $ondelete, false)
+    }
+}
+def summoninstructionbox(){
+    align(xz){
+        /summon armor_stand ~.5 ~ ~0.6 {Invisible:1b,NoGravity:1b,Marker:1,Tags:["ui","bck_instr","trg"]}
+        with(@e[tag=trg]){
+            armor_stand.setmodel(honeycomb,1)
+            untag(trg)
+        }
+    }
+}
+def summoncodebox(){
+    align(xz){
+        /summon armor_stand ~.5 ~ ~0.6 {Invisible:1b,NoGravity:1b,Marker:1,Tags:["ui","bck_code","trg"]}
+        with(@e[tag=trg]){
+            armor_stand.setmodel(honeycomb,2)
+            untag(trg)
+        }
+    }
+}
+def lazy summonbutton(int $item, int $tag, function action){
+    /summon armor_stand ~.5 ~ ~.5 {Invisible:1b,NoGravity:1b,Marker:1,Tags:["ui","ui_component","ui_button","trg",$tag]}
+    with(@e[tag=trg]){
+        untag(trg)
+        inventory.sethelmet($item)
+        but.action = action
+    }
+}
+enum("instruction_set","instruction_set","CSV")
+forgenerate($inst,instruction_set){
+    summongenerator($inst,$inst.item{CustomModelData:$inst.model},$inst.index,$inst.action, $inst.onpickup, $inst.onplace, $inst.ondelete)
+}
+
+def display_desc(){
+    int index = comp.text
+    with(@p){
+        switch(index){
+            forgenerate($inst,instruction_set){
+                $inst.index -> title(@p,actionbar,$inst.desc)
+            }
+        }
+    }
+}

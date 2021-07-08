@@ -1,0 +1,133 @@
+package code_editor
+
+BOOL enabled
+enum mode{
+    selecting,
+    drag
+}
+
+MODE selectingmode
+
+def ticking main(){
+    with(@a,true){
+        if (enabled){
+            if (entity.adventure()){
+                inventory.sethotbar(carrot_on_a_stick{display:{Name:'[{"text":"","italic":false}]'}})
+            }
+            kill(@e[type=item])
+            bool click = false
+            bool dialTaken = dialog.Enabled
+            input.onclick{
+                click = true
+            }
+            selectingmode:=selecting
+            
+            raycast.shoot(20,0.5,block(~ ~ ~ barrier)){
+                if (selectingmode == selecting){
+                    with(@e[type=armor_stand,tag=ui_component,distance=..2,sort=nearest,limit=1]){
+                        effect(give,@s,glowing,1,1,true)
+                        at(@s){
+                            effect(clear,@e[type=armor_stand,tag=ui_component,distance=0.1..],glowing)
+                        }
+                        
+                        if (click && @s[tag=!ui_button] && !interpreter.started){
+                            effect(give,@s,glowing,1,1,true)
+                            tag(@s,ui_selected)
+                            at(@s){
+                                component.comp.onpickup()
+                            }
+                        }
+                        
+                        if (@s[tag=ui_code] && !interpreter.started && !dialTaken){
+                            component.display_desc()
+                        }
+                        if (@s[tag=ui_code] && interpreter.started){
+                            title(@p,actionbar,("You need to stop the execution to modify the code.",dark_red))
+                        }
+                        if (click && @s[tag=ui_button]){
+                            component.but.action()
+                        }
+                    }
+                    if (click && @e[tag=ui_selected]){
+                        selectingmode = drag
+                        sound.playall(minecraft:entity.item.pickup)
+                    }
+                }
+                else if (selectingmode == drag){
+                    align(xz){
+                        /tp @e[tag=ui_selected] ~ ~ ~
+                    }
+                    effect(give,@e[tag=ui_selected],glowing,1,1,true)
+                    if (click){
+                        selectingmode = selecting
+                        with(@e[tag=ui_selected]){
+                            release()
+                            component.comp.onplace()
+                        }
+                        sound.playall(minecraft:block.stone.place)
+                    }
+                }
+            }
+            reordering()
+        }
+    }
+}
+def reordering(){
+    float y = -1
+    with(@e[tag=ui_selected]){
+        y = @s.y
+    }
+    with(@e[tag=ui_code,tag=!ui_selected]){
+        if (component.comp.y <= y && component.comp.onpickup == -1){
+            float ny = component.comp.y - 0.5
+            @s.y = ny
+        }
+        else{
+            @s.y = component.comp.y
+        }
+        @s.x = component.comp.x
+        @s.z = component.comp.z
+    }
+}
+def start(){
+    enabled = true
+}
+def close(){
+    enabled = false
+}
+def delete(){
+    component.comp.ondelete()
+    kill()
+}
+def release(){
+    untag(ui_selected)
+    if (@e[tag=but_delete,distance=..1.5]){
+        delete()
+        sound.playall(minecraft:entity.bat.death)
+        /particle minecraft:cloud ~ ~ ~ 1 1 1 0.1 10
+    }
+    if (!@e[tag=bck_code,distance=..5]){
+        delete()
+    }
+    with(@e[tag=ui_code],true){
+        component.comp.y = @s.y
+    }
+    float sy,sx,sz
+    with(@e[tag=bck_code],true){
+        untag(@e[tag=ui_code],src_code)
+        tag(@e[tag=ui_code,distance=..5],src_code)
+        sx,sy,sz = vector.position()
+        sz -= 0.1
+    }
+    INT Index
+    tools.rankbestfloat(@e[tag=src_code], component.comp.y, Index)
+    with(@e[tag=src_code],true){
+        component.comp.x = sx
+        component.comp.y = sy + 3.65 -(Index*0.5)
+        component.comp.z = sz
+        if (Index > 13){
+            print("",("Beyond the Board >> ",aqua),("You are limited to 13 lines of code!",red))
+            delete()
+        }
+    }
+}

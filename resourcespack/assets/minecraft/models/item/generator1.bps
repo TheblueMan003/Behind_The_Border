@@ -1,0 +1,63 @@
+models.item.new(honeycomb,("item/custom/instruction_box",1),("item/custom/code_box",2))
+
+models.item.new(bucket,("item/custom/arrow",1))
+
+models.item.new(iron_ingot,
+            ("item/custom/inst_walk",1),
+            ("item/custom/inst_turn_left",2),
+            ("item/custom/inst_turn_right",3),
+            ("item/custom/inst_pick_up",4),
+            ("item/custom/inst_drop",5),
+            ("item/custom/inst_turn_around",6),
+            
+            ("item/custom/inst_jump_0",10),
+            ("item/custom/inst_jump_1",11),
+            ("item/custom/inst_jump_2",12),
+            ("item/custom/inst_jump_3",13),
+            ("item/custom/inst_jump_4",14),
+            ("item/custom/inst_jump_5",15),
+            ("item/custom/inst_jump_6",16),
+            ("item/custom/inst_jump_7",17),
+            
+            ("item/custom/inst_label_0",20),
+            ("item/custom/inst_label_1",21),
+            ("item/custom/inst_label_2",22),
+            ("item/custom/inst_label_3",23),
+            ("item/custom/inst_label_4",24),
+            ("item/custom/inst_label_5",25),
+            ("item/custom/inst_label_6",26),
+            ("item/custom/inst_label_7",27),
+            )
+            
+models.item.new(gold_ingot,
+            ("item/custom/but_compile",1),
+            ("item/custom/but_pause",2),
+            ("item/custom/but_stop",3),
+            ("item/custom/but_delete",4),
+            ("item/custom/but_speed",5),
+            ("item/custom/but_slow",6),
+            ("item/custom/but_speed_1",7),
+            ("item/custom/but_speed_2",8),
+            ("item/custom/but_speed_3",9),
+            ("item/custom/but_speed_4",10),
+            ("item/custom/but_blue_bot",11),
+            ("item/custom/but_red_bot",12),
+            ("item/custom/but_green_bot",13),
+            ("item/custom/but_yellow_bot",14))
+            
+playermodel.generate(coal,robot_blue,"custom/robot_blue")
+playermodel.generate(charcoal,robot_pink,"custom/robot_pink")
+playermodel.generate(scute,robot_green,"custom/robot_green")
+playermodel.generate(turtle_egg,robot_yellow,"custom/robot_yellow")
+
+playermodel.generate(diamond,aandeel,"custom/aandeel")
+playermodel.generate(emerald,fetchbot,"custom/fetchbot")
+playermodel.generate(lapis_lazuli,jevin,"custom/jevin")
+playermodel.generate(emerald,fetchbot,"custom/fetchbot")
+
+playermodel.generate(amethyst_shard,kernel,"custom/kernel")
+playermodel.generate(quartz,bluebot,"custom/bluebot")
+playermodel.generate(raw_iron,agentw,"custom/agentw")
+playermodel.generate(raw_copper,theblueman003,"custom/theblueman003")
+playermodel.generate(copper_ingot,benjamin874,"custom/benjamin874")
+playermodel.generate(raw_gold,dragonmaster95,"custom/dragonmaster95")

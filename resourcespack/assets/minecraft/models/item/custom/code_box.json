@@ -1,0 +1,28 @@
+{
+	"credit": "Made with Blockbench",
+	"textures": {
+		"0": "custom/code_box",
+		"particle": "custom/code_box"
+	},
+	"elements": [
+		{
+			"from": [-3, -16, 8],
+			"to": [19, 32, 8],
+			"rotation": {"angle": 0, "axis": "y", "origin": [5, 8, 17]},
+			"faces": {
+				"north": {"uv": [0, 0, 8.532, 16], "texture": "#0"},
+				"east": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"south": {"uv": [0, 0, 8.532, 16], "texture": "#0"},
+				"west": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"up": {"uv": [0, 0, 1, 1], "texture": "#missing"},
+				"down": {"uv": [0, 0, 1, 1], "texture": "#missing"}
+			}
+		}
+	],
+	"display": {
+		"head": {
+			"translation": [0, -25, 0],
+			"scale": [4, 4, 4]
+		}
+	}
+}

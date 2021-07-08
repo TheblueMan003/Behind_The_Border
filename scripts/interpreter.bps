@@ -1,0 +1,191 @@
+package interpreter
+
+enum status{
+    idle,
+    walking,
+    turningleft,
+    turningright,
+    turningaround
+}
+int[20] action
+INT pc
+STATUS status
+bool enabled:=false
+bool started:=false
+int time
+int speed := 1
+
+def compile(){
+    INT Index
+    action = -1
+    with(@e[tag=bck_code],true){
+        untag(@e[tag=ui_code],src_code)
+        tag(@e[tag=ui_code,distance=..4],src_code)
+    }
+    tools.rankbestfloat(@e[tag=ui_code,tag=src_code], component.comp.y, Index)
+    with(@e[tag=ui_code]){
+        action[Index-1] = component.comp.action
+    }
+    started = true
+    enabled = true
+    time = 20
+    with(@e[tag=robot]){
+        pc = 0
+        status = idle
+        robot.data.start()
+    }
+}
+def togglestart(){
+    if(enabled){
+        enabled = false
+    }
+    else{
+        if (started){
+            enabled = true
+        }
+        else{
+            compile()
+        }
+    }
+}
+def speedup(){
+    speed *=2
+    if (speed > 8){
+        speed = 8
+    }
+}
+def speeddown(){
+    speed /=2
+    if (speed <= 1){
+        speed = 1
+    }
+}
+def stop(){
+    with(@e[tag=robot]){
+        robot.data.reset()
+    }
+    box.reset()
+    pc = 0
+    started = false
+    enabled = false
+}
+def next(){
+    if (status == walking){
+        portal.teleport()
+    }
+    at(@s){
+        if (robot.canMove()){
+            status = idle
+            int=>int instruction
+            
+            instruction #= action[pc]
+            if (instruction > -1){
+                pc = instruction(pc)
+            }
+            else{
+                pc++
+            }
+        }
+        else{
+            status = idle
+        }
+    
+        robot.check()
+    }
+}
+def finishedcheck(){
+    bool valid = true
+    with(@e[tag=robot],true,!robot.data.valid){
+        valid = false
+    }
+    with(@e[tag=box_data],true,!box.data.valid){
+        valid = false
+    }
+    if (valid){
+        togglestart()
+        level.completed()
+    }
+}
+def ticking main(){
+    if (enabled){
+        for(int i=0;i < speed && enabled;i++){
+            with(@e[tag=robot],true){
+                animationController()
+            }
+            
+            time++
+            if (time >= 20){
+                time = 0
+                with(@e[tag=robot],true){
+                    next()
+                }
+                with(@e[tag=box_data],true){
+                    box.check()
+                }
+                int syncpc
+                with(@e[tag=blue_bot]){
+                    syncpc = pc
+                }
+                with(@e[tag=red_bot]){
+                    pc = syncpc
+                }
+                finishedcheck()
+            }
+        }
+    }
+}
+def animationController(){
+    instructions.BoxID:=-1
+    switch(status){
+        case(idle){
+            if (instructions.BoxID < 0){
+                robot.data.Idle()
+            }
+            if (instructions.BoxID > -1){
+                robot.data.IdleCarry()
+            }
+        }
+        case(walking){
+            /tp @s ^ ^ ^0.25
+            if (instructions.BoxID < 0){
+                robot.data.WalkAnimation()
+            }
+            if (instructions.BoxID > -1){
+                robot.data.WalkCarryAnimation()
+            }
+        }
+        case(turningleft){
+            /tp @s ~ ~ ~ ~-4.5 ~
+            if (instructions.BoxID < 0){
+                robot.data.Idle()
+            }
+            if (instructions.BoxID > -1){
+                robot.data.IdleCarry()
+            }
+        }
+        case(turningright){
+            /tp @s ~ ~ ~ ~4.5 ~
+            if (instructions.BoxID < 0){
+                robot.data.Idle()
+            }
+            if (instructions.BoxID > -1){
+                robot.data.IdleCarry()
+            }
+        }
+        case(turningaround){
+            /tp @s ~ ~ ~ ~9 ~
+            if (instructions.BoxID < 0){
+                robot.data.Idle()
+            }
+            if (instructions.BoxID > -1){
+                robot.data.IdleCarry()
+            }
+        }
+    }
+    if (instructions.BoxID > -1){
+        int id = instructions.BoxID
+        with(@e[tag=box],false,id == instructions.BoxID){
+            /tp @s ~ ~2 ~
+        }
+    }
+}

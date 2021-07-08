@@ -1,0 +1,54 @@
+package level
+
+define int $gamemsg = "",("Beyond the Board >> ",aqua)
+
+def loadlevel21(){
+    close()
+    
+    level = 21
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-299,73,172)
+    loadpannel(-299,75,180)
+    loadbots((-291,60,170,0,blue),(-301,60,170,90,red),(-296,60,185,90,green))
+    setgoals((-296,59,170),(-301,59,170),(-306,59,180))
+    setbox((-291,60,171,crystal,false),(-301,60,191,box,true))
+    
+    /setblock -301 59 169 minecraft:waxed_copper_block
+    /setblock -296 59 179 minecraft:polished_basalt[axis=z]
+    /setblock -301 59 179 minecraft:polished_basalt[axis=z]
+    
+    start()
+
+}
+
+def loadlevel22(){
+    close()
+    
+    level = 22
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-299,73,172)
+    loadpannel(-299,75,180)
+    loadbots((-291,60,180,90,blue),(-301,60,175,-90,green))
+    setgoals((-296,59,170),(-306,59,180))
+    setbox((-302,60,186,crystal,false),(-301,60,191,box,true),(-306,60,191,crystal,false),(-296,60,191,box,true),(-293,60,178,crystal,false))
+    
+    /setblock -301 59 169 minecraft:polished_basalt[axis=z]
+    /setblock -301 59 179 minecraft:waxed_copper_block
+    /setblock -296 59 179 minecraft:waxed_copper_block
+    
+    start()
+}
+
+def loadlevel23(){
+    close()
+    
+    level = 23
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-331,73,178)
+    loadpannel(-331,75,187)
+    loadbots((-321,60,190,90,blue),(-321,60,180,90,red),(-336,60,185,-90,green))
+    setgoals((-336,59,190),(-336,59,180),(-326,59,195))
+    setbox((-330,60,185,crystal,false))
+    
+    start()
+}
