@@ -70,28 +70,23 @@ def stop(){
     enabled = false
 }
 def next(){
-    if (status == walking){
-        portal.teleport()
-    }
-    at(@s){
-        if (robot.canMove()){
-            status = idle
-            int=>int instruction
-            
-            instruction #= action[pc]
-            if (instruction > -1){
-                pc = instruction(pc)
-            }
-            else{
-                pc++
-            }
+    if (robot.canMove()){
+        status = idle
+        int=>int instruction
+        
+        instruction #= action[pc]
+        if (instruction > -1){
+            pc = instruction(pc)
         }
         else{
-            status = idle
+            pc++
         }
-    
-        robot.check()
     }
+    else{
+        status = idle
+    }
+    
+    robot.check()
 }
 def finishedcheck(){
     bool valid = true
@@ -116,6 +111,14 @@ def ticking main(){
             time++
             if (time >= 20){
                 time = 0
+                with(@e[tag=robot],true){
+                    if (status == walking){
+                        portal.teleport()
+                        at(@s){
+                            boxteleport()
+                        }
+                    }
+                }
                 with(@e[tag=robot],true){
                     next()
                 }
@@ -182,6 +185,9 @@ def animationController(){
             }
         }
     }
+    boxteleport()
+}
+def boxteleport(){
     if (instructions.BoxID > -1){
         int id = instructions.BoxID
         with(@e[tag=box],false,id == instructions.BoxID){

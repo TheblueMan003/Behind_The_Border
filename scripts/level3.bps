@@ -52,3 +52,18 @@ def loadlevel23(){
     
     start()
 }
+
+def loadlevel24(){
+    close()
+    
+    level = 24
+    instructionset(walk,turnleft,turnright,turnaround,pickup,drop,jump)
+    loadplayer(-331,73,178)
+    loadpannel(-331,75,187)
+    loadbots((-336,60,180,-90,blue),(-321,60,180,-90,red))
+    setgoals((-326,59,180),(-341,59,175))
+    setbox((-335,60,180,crystal,false))
+    setportal((-321,59,190,-331,59,175))
+    
+    start()
+}

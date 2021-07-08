@@ -1,6 +1,6 @@
 models.item.new(honeycomb,("item/custom/instruction_box",1),("item/custom/code_box",2))
 
-models.item.new(bucket,("item/custom/arrow",1))
+models.item.new(bucket,("item/custom/arrow",1),("item/custom/arrow_red",2),("item/custom/arrow_green",3))
 
 models.item.new(iron_ingot,
             ("item/custom/inst_walk",1),

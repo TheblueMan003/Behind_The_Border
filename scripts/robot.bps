@@ -1,8 +1,14 @@
 package robot
 
+enum robotcolor = blue, red, green, yellow
 class arrow initer minecraft:armor_stand{
-    def __init__(){
-        armor_stand.setmodel(bucket,1)
+    def __init__(robotcolor color){
+        switch(color){
+            blue -> armor_stand.setmodel(bucket,1)
+            red -> armor_stand.setmodel(bucket,2)
+            green -> armor_stand.setmodel(bucket,3)
+            yellow -> armor_stand.setmodel(bucket,4)
+        }
         data.set({Marker:1,Invisible:1})
     }
     def tp(){
@@ -13,7 +19,6 @@ class arrow initer minecraft:armor_stand{
     }
 }
 
-
 struct robot{
     void=>void WalkAnimation
     void=>void WalkCarryAnimation
@@ -22,6 +27,7 @@ struct robot{
     
     float sx,sy,sz,su,sv
     
+    robotcolor color
     bool valid
     bool wasValid
     bool forcemove
@@ -40,7 +46,7 @@ struct robot{
         Idle()
         instructions.BoxID = -1
         at(@s){
-            disdir = new arrow()
+            disdir = new arrow(data.color)
         }
         at(@s){
             disdir.tp()
@@ -86,15 +92,15 @@ def check(){
         data.valid = true
     }
     if (data.valid && !data.wasValid){
-        /particle minecraft:totem_of_undying ~ ~ ~ 1 1 1 1 10
-        sound.playall(minecraft:entity.experience_orb.pickup)
+        /particle minecraft:totem_of_undying ~ ~ ~ 1 1 1 1 20
+        with(@a,true){sound.play(minecraft:entity.experience_orb.pickup)}
         data.wasValid = true
     }
     if (!data.valid){
         data.wasValid = false
     }
 }
-def lazy summonbot(int $tag, int $item){
+def lazy summonbot(int $tag, int $item, int $color){
     def walk(){
         animation.walk(interpreter.time/2, $item, 1, 2, 3, 4, 5)
     }
@@ -118,6 +124,7 @@ def lazy summonbot(int $tag, int $item){
         data.WalkCarryAnimation = walkcarry
         data.Idle = idle
         data.IdleCarry = idlecarry
+        data.color = $color
         
         data.reset()
     }
@@ -128,7 +135,7 @@ def clear(){
     }
 }
 def summonBlue(int rot){
-    summonbot("blue_bot",coal)
+    summonbot("blue_bot",coal, blue)
     with(@e[tag=blue_bot]){
         robot.data.su = rot
         @s.rot_x = rot
@@ -136,7 +143,7 @@ def summonBlue(int rot){
     }
 }
 def summonRed(int rot){
-    summonbot("red_bot",charcoal)
+    summonbot("red_bot",charcoal, red)
     with(@e[tag=red_bot]){
         robot.data.su = rot
         @s.rot_x = rot
@@ -144,7 +151,7 @@ def summonRed(int rot){
     }
 }
 def summonGreen(int rot){
-    summonbot("green_bot",scute)
+    summonbot("green_bot",scute, green)
     with(@e[tag=green_bot]){
         robot.data.su = rot
         @s.rot_x = rot
@@ -152,7 +159,7 @@ def summonGreen(int rot){
     }
 }
 def summonYellow(int rot){
-    summonbot("yellow_bot",turtle_egg)
+    summonbot("yellow_bot",turtle_egg, yellow)
     with(@e[tag=yellow_bot]){
         robot.data.su = rot
         @s.rot_x = rot

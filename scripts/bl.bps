@@ -38,3 +38,6 @@ def ticking manager(){
     effect(give,@a,night_vision,999999,1,true)
     effect(give,@a,saturation,999999,1,true)
 }
+def reset(){
+    @reset()
+}

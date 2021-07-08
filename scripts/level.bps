@@ -2,10 +2,12 @@ package level
 
 FLOAT sx,sy,sz,su,sv,ex,ey,ez, tick
 BOOL travelling
-define int $nb_lvl = 21
+bossbar display = bossbar("level")
+bossbar display2 = bossbar("chara")
+define int $nb_lvl = 24
 
 def notif(){
-with(@a,true){sound.play(minecraft:block.note_block.bell)}
+    with(@a,true){sound.play(minecraft:block.note_block.bell)}
 }
 
 def lazy initplayer(int $x, int $y, int $z){
@@ -88,6 +90,8 @@ def lazy setgoals(params $par){
 
 def ticking main(){
     if (enabled){
+        display.setname(f"Level: {level}/$nb_lvl")
+        display.showeveryone()
         with(@e[tag=lvl_goal],true){
             /tp @s ~ ~ ~ ~10 ~
             /particle minecraft:totem_of_undying ^ ^5 ^0.75
@@ -105,6 +109,9 @@ def ticking main(){
             at(@s){box.crystal_area()}
             at(@s){box.crystal_area()}
         }
+    }
+    else{
+        display.hide()
     }
 }
 
