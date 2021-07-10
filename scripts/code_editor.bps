@@ -43,6 +43,10 @@ def ticking main(){
                         }
                         if (@s[tag=ui_code] && interpreter.started){
                             title(@p,actionbar,("You need to stop the execution to modify the code.",dark_red))
+                            if (click){
+                                sound.playall(minecraft:entity.villager.no)
+                                print(("You need to stop the execution to modify the code.",dark_red))
+                            }
                         }
                         if (click && @s[tag=ui_button]){
                             component.but.action()
@@ -128,6 +132,7 @@ def release(){
         if (Index > 13){
             print("",("Beyond the Board >> ",aqua),("You are limited to 13 lines of code!",red))
             delete()
+            release()
         }
     }
 }

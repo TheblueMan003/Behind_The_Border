@@ -96,6 +96,7 @@ def loadlevel15(){
     setportal((-211,59,115,-216,59,105))
     
     /setblock -221 59 109 minecraft:waxed_copper_block
+    print($gamemsg,("Blue Blocks are teleporters. Robots get teleported when walking on them.",yellow))
     
     start()
 }

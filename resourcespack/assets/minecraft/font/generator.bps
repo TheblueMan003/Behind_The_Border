@@ -44,4 +44,6 @@ forgenerate($i,0,17){
     font.addchar(title_$i,"ui/title_$i.png", 60, "\uE1$eval(50+$i)")
 }
 
+font.addchar(to_be_continued,"ui/to_be_continued.png", 60, "\uE200")
+
 font.generate()

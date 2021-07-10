@@ -51,18 +51,35 @@ def start(){
     }
     positioned(~-2 ~ ~){
             component.summonbutton(gold_ingot{CustomModelData:4},but_delete){
-            with(@e[tag=bck_code],true){
-                untag(@e[tag=ui_code],src_code)
-                tag(@e[tag=ui_code,distance=..4],src_code)
+            if (interpreter.started){
+                sound.playall(minecraft:entity.villager.no)
+                print(("You need to stop the execution to modify the code.",dark_red))
             }
-            kill(@e[tag=src_code])
-            sound.playall(minecraft:entity.bat.death)
+            else{
+                with(@e[tag=bck_code],true){
+                    untag(@e[tag=ui_code],src_code)
+                    tag(@e[tag=ui_code,distance=..4],src_code)
+                }
+                
+                kill(@e[tag=src_code])
+                sound.playall(minecraft:entity.bat.death)
+            }
         }
     }
     positioned(~ ~1 ~){
             component.summonbutton(gold_ingot{CustomModelData:7},but_speed_nb){
         }
         updatespeed()
+    }
+    positioned(~ ~-1 ~){
+        component.summonbutton(gold_ingot{CustomModelData:15},but_help){
+            enum("timestamp","timestamp","CSV")
+            switch(level.level){
+                forgenerate($i,timestamp){
+                    $eval($i.index+1) -> print(("Click here to see the solution to the level",green,link="https://youtu.be/SvxqpD-oUXs?t=$eval($i.min*60+$i.sec)"))
+                }
+            }
+        }
     }
     positioned(~-1 ~1 ~){
             component.summonbutton(gold_ingot{CustomModelData:5},but_speed_up){
@@ -95,9 +112,9 @@ def start(){
         }
     }
     //positioned(~-2 ~2 ~){
-    //        component.summonbutton(gold_ingot{CustomModelData:14},but_yellow_bot){
-    //        botbutton(yellow)
-    //    }
+            //        component.summonbutton(gold_ingot{CustomModelData:14},but_yellow_bot){
+            //        botbutton(yellow)
+        //    }
     //}
     positioned(~-5 ~ ~){
         component.summoncodebox()

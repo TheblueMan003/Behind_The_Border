@@ -143,6 +143,10 @@ def nextlevel(){
     elif (level == 14){
         loadlevel14Story()
     }
+    elif (level == 25){
+        close()
+        intro.startfinal()
+    }
     else{
         switch(level){
             forgenerate($i,1,$nb_lvl){

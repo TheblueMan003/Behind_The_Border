@@ -1,6 +1,9 @@
 models.item.new(honeycomb,("item/custom/instruction_box",1),("item/custom/code_box",2))
-
 models.item.new(bucket,("item/custom/arrow",1),("item/custom/arrow_red",2),("item/custom/arrow_green",3))
+models.item.new(diamond_hoe,("item/deco/sign",1),("item/deco/lamp",2),("item/deco/skybuster",3),
+                ("item/deco/theblueman003",4),("item/deco/benjamin874",5),("item/deco/rewind",6),
+                ("item/deco/title",7),("item/deco/bottle",8),("item/deco/computer",9),
+                ("item/deco/water",10))
 
 models.item.new(iron_ingot,
             ("item/custom/inst_walk",1),
@@ -29,6 +32,10 @@ models.item.new(iron_ingot,
             ("item/custom/inst_label_7",27),
             )
             
+forgenerate($i,0,18){
+    models.item.add(netherite_ingot,"item/animation/blue_void_$i",$eval($i+1))
+}
+models.item.generate(netherite_ingot)
 models.item.new(gold_ingot,
             ("item/custom/but_compile",1),
             ("item/custom/but_pause",2),
@@ -43,7 +50,8 @@ models.item.new(gold_ingot,
             ("item/custom/but_blue_bot",11),
             ("item/custom/but_red_bot",12),
             ("item/custom/but_green_bot",13),
-            ("item/custom/but_yellow_bot",14))
+            ("item/custom/but_yellow_bot",14),
+            ("item/custom/but_help",15))
             
 playermodel.generate(coal,robot_blue,"custom/robot_blue")
 playermodel.generate(charcoal,robot_pink,"custom/robot_pink")
@@ -54,6 +62,8 @@ playermodel.generate(diamond,aandeel,"custom/aandeel")
 playermodel.generate(emerald,fetchbot,"custom/fetchbot")
 playermodel.generate(lapis_lazuli,jevin,"custom/jevin")
 playermodel.generate(emerald,fetchbot,"custom/fetchbot")
+playermodel.generate(netherite_scrap,plagiatus,"custom/plagiatus")
+playermodel.generate(stick,doublefelix,"custom/doublefelix")
 
 playermodel.generate(amethyst_shard,kernel,"custom/kernel")
 playermodel.generate(quartz,bluebot,"custom/bluebot")

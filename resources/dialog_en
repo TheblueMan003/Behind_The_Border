@@ -38,6 +38,9 @@ too_far;((""),("",red));0
 too_far_0;((""),("Congratulation! You managed to reach the Blue Room!",light_purple));80
 too_far_1;((""),("This room is so far beyond the World Border that Physics starts to break.",light_purple));120
 too_far_2;((""),("Since we are beyond the 64 bit integer limit, object position can get a bit weird.",light_purple));1200
+go_to;((""),("",red));0
+go_to_0;((""),("As you might have noticed you are also limited by the number of lines of code.",light_purple));120
+go_to_1;((""),("But don't worry we found a ways to go beyond that limit too!",light_purple));120
 green_bot;((""),("",red));0
 green_bot_0;((""),("Oh look! That's another of our robot!",light_purple));80
 green_bot_1;((""),("This one is an older version. It download the entire code to it harddrive.",light_purple));120
@@ -49,6 +52,7 @@ comment_2;((""),("So please don't mess up to much.",light_purple));80
 final;((""),("",red));0
 final_0;((""),("And here we are! The vault beyond the World Border!",light_purple));80
 final_1;((""),("The place where we store all of the secrete weapons of Solar Tech Corp.",light_purple));120
-final_2;((""),("Wait! What's happening?",light_purple));80
-final_3;((""),("We lost control of the robot.",light_purple));80
-final_4;((""),("Someone infiltrated the vault ?! Impossible!",light_purple));80
+final_2;((""),("Wait! What's happening?",light_purple));60
+final_3;((""),("The world border isn't suppose to be moving!",light_purple));80
+final_4;((""),("We lost control of the robot.",light_purple));80
+final_5;((""),("Someone infiltrated the vault ?! Impossible!",light_purple));80

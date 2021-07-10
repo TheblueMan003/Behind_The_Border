@@ -16,15 +16,15 @@ def ticking main(){
             intro.start()
         }
     }
-    input.onblackstonebutton(0,0,0){
+    input.onblackstonebutton(-28,115,16){
         print(("=======[ Music Credit ]=======",green))
-        print("\"Puzzle Game 3\" by Eric Matyas Soundimage.org")
+        print("\"Puzzle Game 2 and 3\" by Eric Matyas Soundimage.org")
         print("Puzzle tune by rezoner")
         print(("Perpetual Tension by Zander Noriega",link="https://opengameart.org/users/zander-noriega"))
-    } 
+    }
     maps.initplayers{
         /execute in minecraft:overworld run tp @s -21.39 115.00 24.59 -1709.74 -1.30
         gamemode(adventure)
         /clear @s
-    } 
+    }
 }

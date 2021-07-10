@@ -14,6 +14,7 @@ bool enabled:=false
 bool started:=false
 int time
 int speed := 1
+int syncpc
 
 def compile(){
     INT Index
@@ -29,6 +30,7 @@ def compile(){
     started = true
     enabled = true
     time = 20
+    syncpc = 0
     with(@e[tag=robot]){
         pc = 0
         status = idle
@@ -66,6 +68,7 @@ def stop(){
     }
     box.reset()
     pc = 0
+    syncpc = 0
     started = false
     enabled = false
 }
@@ -80,6 +83,12 @@ def next(){
         }
         else{
             pc++
+        }
+        with(@s[tag=blue_bot]){
+            syncpc = pc
+        }
+        with(@s[tag=red_bot]){
+            syncpc = pc
         }
     }
     else{
@@ -119,19 +128,20 @@ def ticking main(){
                         }
                     }
                 }
-                with(@e[tag=robot],true){
-                    next()
-                }
-                with(@e[tag=box_data],true){
-                    box.check()
-                }
-                int syncpc
                 with(@e[tag=blue_bot]){
-                    syncpc = pc
+                    pc = syncpc
                 }
                 with(@e[tag=red_bot]){
                     pc = syncpc
                 }
+                with(@e[tag=robot],true){
+                    next()
+                }
+                
+                with(@e[tag=box_data],true){
+                    box.check()
+                }
+                
                 finishedcheck()
             }
         }

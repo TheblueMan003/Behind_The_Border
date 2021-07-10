@@ -37,6 +37,9 @@ def void(){
 def ticking manager(){
     effect(give,@a,night_vision,999999,1,true)
     effect(give,@a,saturation,999999,1,true)
+    with(@e[type=falling_block]){
+        data.set({Time:1})
+    }
 }
 def reset(){
     @reset()

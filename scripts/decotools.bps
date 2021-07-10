@@ -1,0 +1,91 @@
+package decotools
+
+def lamp(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_lamp"],NoGravity:1,Invisible:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,2)
+        untag(trg)
+    }
+}
+def sign(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_sign"],NoGravity:1,Invisible:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,1)
+        untag(trg)
+    }
+}
+def skybuster(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_skybuster","spin","anim"],NoGravity:1,Invisible:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,3)
+        untag(trg)
+    }
+}
+def doubleboots(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_doubleboots","spin","anim"],NoGravity:1,Invisible:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(iron_boots,0)
+        untag(trg)
+    }
+}
+def doubleboots(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_doubleboots","spin","anim"],NoGravity:1,Invisible:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(iron_boots,0)
+        untag(trg)
+    }
+}
+def theblueman003(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_tbm","lobby"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,4)
+        untag(trg)
+    }
+}
+def benjamin874(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_bnj","lobby"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,5)
+        untag(trg)
+    }
+}
+def rewind(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_rewind","spin","anim"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,6)
+        untag(trg)
+    }
+}
+def title(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_title","lobby"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,7)
+        untag(trg)
+    }
+}
+def bottle(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_bottle","spin","anim"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,8)
+        untag(trg)
+    }
+}
+def water(){
+    /summon armor_stand ~ ~ ~ {Tags:["trg","deco","dc_water"],NoGravity:1,Invisible:1,Marker:1}
+    with(@e[tag=trg]){
+        armor_stand.setmodel(diamond_hoe,10)
+        untag(trg)
+    }
+}
+def pc(){
+    align(xz){
+        /summon armor_stand ~0.5 ~ ~0.5 {Tags:["trg","deco","dc_pc"],NoGravity:1,Invisible:1}
+        with(@e[tag=trg]){
+            armor_stand.setmodel(diamond_hoe,9)
+            float x
+            x = random.range(-90,180)
+            @s.rot_x = x
+            untag(trg)
+        }
+    }
+}

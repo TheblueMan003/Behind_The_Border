@@ -17,7 +17,7 @@ forgenerate($i,0,2){
 forgenerate($i,0,2){
     sounds.music("sfx/comment_$i")
 }
-forgenerate($i,0,4){
+forgenerate($i,0,5){
     sounds.music("sfx/final_$i")
 }
 

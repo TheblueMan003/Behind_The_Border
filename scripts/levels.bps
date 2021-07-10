@@ -90,6 +90,7 @@ def loadlevel5(){
     
     intro.startBox()
     print($gamemsg,"New Instructions available: ",("Pick Up",yellow)," and ",("Drop",yellow),"!")
+    print($gamemsg,"Tips: ",("Boxes need to be placed on copper blocks!",yellow))
     notif()
     
     start()
@@ -120,7 +121,7 @@ def loadlevel7(){
     
     robot.limitdistance = true
     print($gamemsg,"Warning your robot is too far from the WI-FI router!")
-    print($gamemsg,"To go ",("beyond the distance limit",yellow)," please use ",("crystals",light_purple),".")
+    print($gamemsg,"Crystal define a new WI-FI limit. If the robot go ",("beyond that limit",yellow)," it will stop working!")
     notif()
     with(@a){
         music.playmusic1()
@@ -153,7 +154,7 @@ def loadlevel8(){
     
     intro.startRedRobot()
     
-    print($gamemsg,"Each robot must be on a ",("Diamond Block",aqua),".")
+    print($gamemsg,"Try getting the robot beyond the crystal limit in range of the crystal.")
     print($gamemsg,"Blue & Red robots are sync each other when in reach of a crystals.")
     notif()
     
@@ -187,6 +188,7 @@ def loadlevel10(){
     print($gamemsg,("Go To",yellow)," allow you to go to a specific place inside the code.")
     print($gamemsg,"With it you can create loop!")
     print($gamemsg,"Tip: ",("Try Drop followed by Pick Up",yellow),".")
+    intro.startGoTo()
     notif()
     
     /setblock -175 59 140 minecraft:waxed_copper_block
