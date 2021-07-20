@@ -39,6 +39,7 @@ font.addchar(benj_pres_11,"ui/benj_pres_11.png", 60, "\uE141")
 font.addchar(benj_pres_12,"ui/benj_pres_12.png", 60, "\uE142")
 font.addchar(benj_pres_13,"ui/benj_pres_13.png", 60, "\uE143")
 font.addchar(benj_pres_14,"ui/benj_pres_14.png", 60, "\uE144")
+font.addchar(jam,"ui/jam.png", 30, "\uE201")
 
 forgenerate($i,0,17){
     font.addchar(title_$i,"ui/title_$i.png", 60, "\uE1$eval(50+$i)")

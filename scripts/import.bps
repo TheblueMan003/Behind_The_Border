@@ -25,3 +25,4 @@ import math.raycast
 import resourcespack.playermodel
 import cmd.music
 import cmd.bossbar
+import entity.object

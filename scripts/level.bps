@@ -98,7 +98,7 @@ def ticking main(){
             /particle minecraft:totem_of_undying ^ ^5 ^-0.75
         }
         with(@a,true,travelling){
-            animation.lerpposition(tick,60,sx,sy,sz,su,sv,ex,ey,ez,0,90){
+            animation.lazylerpposition(tick,60,sx,sy,sz,su,sv,ex,ey,ez,0,90){
                 travelling = false
                 gamemode(adventure)
             }

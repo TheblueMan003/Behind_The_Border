@@ -21,6 +21,9 @@ forgenerate($i,0,5){
     sounds.music("sfx/final_$i")
 }
 
+sounds.music("sfx/go_to_0")
+sounds.music("sfx/go_to_1")
+
 sounds.music("music/puzzle_game_2")
 sounds.music("music/puzzle_game_3")
 sounds.music("music/puzzle_1_a")

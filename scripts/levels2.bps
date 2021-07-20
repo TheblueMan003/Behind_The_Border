@@ -149,7 +149,7 @@ def loadlevel18(){
     
     print($gamemsg,"The Green Robot downloads the code once it is in range of a crystal.")
     print($gamemsg,"Meaning that Green Robot only needs to be the radius of the crystal for one tick.")
-    print($gamemsg,"The Green Robot is not sync with the other. It will always start executing the code from the beginnig.")
+    print($gamemsg,"The Green Robot is not sync with the other. It will always starts executing the code from the beginnig.")
     notif()
     
     /setblock -272 59 150 minecraft:waxed_copper_block

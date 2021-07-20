@@ -26,7 +26,7 @@ wifi;((""),("",red));0
 wifi_0;((""),("Congratulation! You are doing well!",light_purple));80
 wifi_1;((""),("Now we have a new problem.",light_purple));80
 wifi_2;((""),("The robot are connected to the WI-FI.",light_purple));80
-wifi_3;((""),("But as you can guess the WI-FI only work in limited range.",light_purple));120
+wifi_3;((""),("But as you can guess the WI-FI only works in limited range.",light_purple));120
 wifi_4;((""),("To go ",light_purple),("beyond that limit",yellow),(", you'll need to use crystals!",light_purple));1200
 box;((""),("",red));0
 box_0;((""),("Those robot can carry stuff!",light_purple));80
@@ -40,11 +40,11 @@ too_far_1;((""),("This room is so far beyond the World Border that Physics start
 too_far_2;((""),("Since we are beyond the 64 bit integer limit, object position can get a bit weird.",light_purple));1200
 go_to;((""),("",red));0
 go_to_0;((""),("As you might have noticed you are also limited by the number of lines of code.",light_purple));120
-go_to_1;((""),("But don't worry we found a ways to go beyond that limit too!",light_purple));120
+go_to_1;((""),("But don't worry we found a way to go beyond that limit too!",light_purple));120
 green_bot;((""),("",red));0
 green_bot_0;((""),("Oh look! That's another of our robot!",light_purple));80
-green_bot_1;((""),("This one is an older version. It download the entire code to it harddrive.",light_purple));120
-green_bot_2;((""),("That way it only need to be in range of a crystal once.",light_purple));80
+green_bot_1;((""),("This one is an older version. It downloads the entire code to it harddrive.",light_purple));120
+green_bot_2;((""),("That way it only needs to be in range of a crystal once.",light_purple));80
 comment;((""),("",red));0
 comment_0;((""),("Oh yeah I forgot to tell you something!",light_purple));80
 comment_1;((""),("Since the robot is beyond the World Border we cannot send human to get it back.",light_purple));120
