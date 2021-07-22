@@ -223,6 +223,7 @@ def ticking main(){
             if (globaltick >= 680 && enabled){
                 /title @a times 0 10 0
                 title(@a,title,"\uE200")
+                dialog.close()
                 effect(give,@a,blindness,255,255,true)
             }
         }
